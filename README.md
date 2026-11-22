@@ -170,7 +170,7 @@ makes a movie (H.264 at 24, 25 or 30 fps) next to the photos. It keeps the Mac a
 falling behind, and stops after ten failures in a row. A 3 h 20 min night run gave 1,497 of 1,500 frames.
 
 <p align="center">
-  <img src="docs/images/app-timelapse.png" alt="The timelapse settings popover and the running timelapse banner" width="720">
+  <img src="docs/images/app-timelapse.png" alt="The timelapse settings: interval, number of photos, movie speed, photo mode and focus hold" width="720">
 </p>
 
 ### Stop alert
