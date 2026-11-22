@@ -22,6 +22,18 @@ if [[ -n "${SIGN_ID:-}" && -z "${PROFILE:-}" ]]; then
     echo "error: an App Store build needs PROFILE (a Mac App Store provisioning profile for io.github.moheshmohan.tetherstudio)" >&2
     exit 1
 fi
+if [[ -n "${PROFILE:-}" ]]; then
+    # The signature must carry the app and team identifiers the provisioning profile names.
+    PROF_ENT="$(mktemp -d)/profile.plist"
+    security cms -D -i "$PROFILE" | plutil -extract Entitlements xml1 -o "$PROF_ENT" -
+    APP_ID="$(plutil -extract com\\.apple\\.application-identifier raw "$PROF_ENT" 2>/dev/null || plutil -extract application-identifier raw "$PROF_ENT")"
+    TEAM_ID="$(plutil -extract com\\.apple\\.developer\\.team-identifier raw "$PROF_ENT")"
+    MERGED="$(dirname "$PROF_ENT")/TetherStudio.entitlements"
+    cp "$ENTITLEMENTS" "$MERGED"
+    plutil -insert com\\.apple\\.application-identifier -string "$APP_ID" "$MERGED"
+    plutil -insert com\\.apple\\.developer\\.team-identifier -string "$TEAM_ID" "$MERGED"
+    export ENTITLEMENTS="$MERGED"
+fi
 scripts/make_app.sh
 
 APP="build/Tether Studio.app"
