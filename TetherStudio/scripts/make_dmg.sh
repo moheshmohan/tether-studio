@@ -55,5 +55,5 @@ if [[ ! -f "$SRC" ]]; then
     fi
 fi
 
-shasum -a 256 "$DMG" | tee "$DMG.sha256"
+(cd dist && shasum -a 256 "$(basename "$DMG")" $([[ -f "$(basename "$SRC")" ]] && basename "$SRC") > SHA256SUMS.txt && cat SHA256SUMS.txt)
 echo "==> Done: $PWD/$DMG"
