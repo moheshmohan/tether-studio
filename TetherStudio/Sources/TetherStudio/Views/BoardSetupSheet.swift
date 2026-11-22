@@ -23,6 +23,13 @@ struct BoardSetupSheet: View {
                  + "and only has to be done once.")
                 .fixedSize(horizontal: false, vertical: true)
 
+            Label("Attach the flexible antenna from the board's box to its small round antenna connector first. "
+                  + "The XIAO ESP32-C3 has no antenna of its own and barely reaches the camera without it.",
+                  systemImage: "antenna.radiowaves.left.and.right")
+                .font(.callout)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+
             if let problem = setup.imageProblem {
                 Label(problem, systemImage: "exclamationmark.triangle.fill").foregroundStyle(.orange)
             }

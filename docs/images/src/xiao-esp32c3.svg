@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="pcb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1F3D6B"/><stop offset="1" stop-color="#132845"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E4E7EE"/><stop offset="1" stop-color="#9AA1B2"/>
+    </linearGradient>
+    <linearGradient id="chip" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2E3138"/><stop offset="1" stop-color="#16181D"/>
+    </linearGradient>
+    <marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"><circle cx="5" cy="5" r="4" fill="#4FD8C4"/></marker>
+  </defs>
+  <rect width="1600" height="900" rx="28" fill="#141724"/>
+  <text x="60" y="78" fill="#F3F5FA" font-size="34" font-weight="700">The bridge board: Seeed Studio XIAO ESP32-C3</text>
+  <text x="60" y="114" fill="#9AA1B6" font-size="21">Top view, enlarged: the real board is 21 × 17.8 mm, about the size of a thumbnail. Illustration, not a photo.</text>
+
+  <!-- board: USB-C end on top -->
+  <g transform="translate(560,170)">
+    <!-- USB-C connector, overhanging the top edge -->
+    <rect x="110" y="-34" width="136" height="70" rx="22" fill="url(#metal)" stroke="#7D8494" stroke-width="2"/>
+    <rect x="140" y="-14" width="76" height="20" rx="10" fill="#3A3F4B"/>
+    <!-- PCB -->
+    <rect x="0" y="0" width="356" height="420" rx="26" fill="url(#pcb)" stroke="#2D5590" stroke-width="3"/>
+    <!-- castellated pads, 7 per long side -->
+    <g fill="#D9B45A">
+      <circle cx="14" cy="80" r="11"/><circle cx="14" cy="130" r="11"/><circle cx="14" cy="180" r="11"/><circle cx="14" cy="230" r="11"/><circle cx="14" cy="280" r="11"/><circle cx="14" cy="330" r="11"/><circle cx="14" cy="380" r="11"/>
+      <circle cx="342" cy="80" r="11"/><circle cx="342" cy="130" r="11"/><circle cx="342" cy="180" r="11"/><circle cx="342" cy="230" r="11"/><circle cx="342" cy="280" r="11"/><circle cx="342" cy="330" r="11"/><circle cx="342" cy="380" r="11"/>
+    </g>
+    <g fill="#132845"><circle cx="14" cy="80" r="5"/><circle cx="14" cy="130" r="5"/><circle cx="14" cy="180" r="5"/><circle cx="14" cy="230" r="5"/><circle cx="14" cy="280" r="5"/><circle cx="14" cy="330" r="5"/><circle cx="14" cy="380" r="5"/>
+      <circle cx="342" cy="80" r="5"/><circle cx="342" cy="130" r="5"/><circle cx="342" cy="180" r="5"/><circle cx="342" cy="230" r="5"/><circle cx="342" cy="280" r="5"/><circle cx="342" cy="330" r="5"/><circle cx="342" cy="380" r="5"/></g>
+    <!-- BOOT and RESET buttons beside the USB connector -->
+    <rect x="46" y="44" width="50" height="40" rx="8" fill="#E9ECF3" stroke="#8C93A8" stroke-width="2"/><circle cx="71" cy="64" r="11" fill="#B8BECC"/>
+    <text x="71" y="112" fill="#F3F5FA" font-size="22" font-weight="700" text-anchor="middle">B</text>
+    <rect x="260" y="44" width="50" height="40" rx="8" fill="#E9ECF3" stroke="#8C93A8" stroke-width="2"/><circle cx="285" cy="64" r="11" fill="#B8BECC"/>
+    <text x="285" y="112" fill="#F3F5FA" font-size="22" font-weight="700" text-anchor="middle">R</text>
+    <!-- ESP32-C3 chip -->
+    <rect x="112" y="160" width="132" height="132" rx="10" fill="url(#chip)" stroke="#4A4F5C" stroke-width="2"/>
+    <text x="178" y="222" fill="#C9CEDD" font-size="20" font-weight="700" text-anchor="middle">ESP32</text>
+    <text x="178" y="248" fill="#C9CEDD" font-size="20" font-weight="700" text-anchor="middle">-C3</text>
+    <!-- flash, crystal, small parts -->
+    <rect x="70" y="320" width="70" height="44" rx="4" fill="#23262D"/><rect x="226" y="322" width="46" height="30" rx="4" fill="url(#metal)"/>
+    <rect x="160" y="120" width="18" height="10" rx="2" fill="#B07A45"/><rect x="190" y="120" width="18" height="10" rx="2" fill="#B07A45"/><rect x="268" y="200" width="10" height="18" rx="2" fill="#B07A45"/>
+    <!-- U.FL antenna connector near the far end -->
+    <circle cx="300" cy="384" r="18" fill="url(#metal)" stroke="#7D8494" stroke-width="2"/><circle cx="300" cy="384" r="6" fill="#C9A646"/>
+    <!-- antenna cable and flexible antenna -->
+    <path d="M 300 384 C 330 440, 320 470, 300 486" fill="none" stroke="#2B2B2B" stroke-width="9" stroke-linecap="round"/>
+    <rect x="30" y="480" width="300" height="64" rx="10" fill="#C9A646" opacity="0.92"/>
+    <path d="M 50 498 h 40 v 28 h 40 v -28 h 40 v 28 h 40 v -28 h 40 v 28 h 40" fill="none" stroke="#8C6A1E" stroke-width="5"/>
+  </g>
+
+  <!-- callouts -->
+  <g font-size="21">
+    <line x1="742" y1="150" x2="1010" y2="150" stroke="#4FD8C4" stroke-width="3" marker-start="url(#dot)"/>
+    <text x="1022" y="146" fill="#4FD8C4" font-weight="700">USB-C</text>
+    <text x="1022" y="174" fill="#C9CEDD">To the Mac, with a data cable.</text>
+    <text x="1022" y="200" fill="#C9CEDD">Power and the camera link, both.</text>
+
+    <line x1="631" y1="234" x2="400" y2="234" stroke="#4FD8C4" stroke-width="3" marker-start="url(#dot)"/>
+    <text x="388" y="230" fill="#4FD8C4" font-weight="700" text-anchor="end">B = BOOT</text>
+    <text x="388" y="258" fill="#C9CEDD" text-anchor="end">Only if set-up cannot reach the board:</text>
+    <text x="388" y="284" fill="#C9CEDD" text-anchor="end">hold it while plugging in, then let go.</text>
+
+    <line x1="845" y1="234" x2="1010" y2="290" stroke="#4FD8C4" stroke-width="3" marker-start="url(#dot)"/>
+    <text x="1022" y="286" fill="#4FD8C4" font-weight="700">R = RESET</text>
+    <text x="1022" y="314" fill="#C9CEDD">Restarts the board. Not needed normally.</text>
+
+    <line x1="672" y1="400" x2="400" y2="430" stroke="#4FD8C4" stroke-width="3" marker-start="url(#dot)"/>
+    <text x="388" y="426" fill="#4FD8C4" font-weight="700" text-anchor="end">ESP32-C3</text>
+    <text x="388" y="454" fill="#C9CEDD" text-anchor="end">2.4 GHz Wi-Fi, native USB, 4 MB flash.</text>
+    <text x="388" y="480" fill="#C9CEDD" text-anchor="end">The app installs the bridge here.</text>
+
+    <line x1="860" y1="554" x2="1010" y2="420" stroke="#FF8A78" stroke-width="3" marker-start="url(#dot)"/>
+    <text x="1022" y="416" fill="#FF8A78" font-weight="700">Antenna connector (U.FL)</text>
+    <text x="1022" y="444" fill="#C9CEDD">The board has no antenna of its own.</text>
+    <text x="1022" y="470" fill="#C9CEDD">Snap on the flexible antenna that comes</text>
+    <text x="1022" y="496" fill="#C9CEDD">with it, or it will barely reach the camera.</text>
+
+    <line x1="895" y1="682" x2="1010" y2="660" stroke="#4FD8C4" stroke-width="3" marker-start="url(#dot)"/>
+    <text x="1022" y="656" fill="#4FD8C4" font-weight="700">Flexible Wi-Fi antenna</text>
+    <text x="1022" y="684" fill="#C9CEDD">Included in the box. Stick it anywhere,</text>
+    <text x="1022" y="710" fill="#C9CEDD">away from metal, facing the camera.</text>
+  </g>
+  <text x="60" y="860" fill="#9AA1B6" font-size="19">Tested with the XIAO ESP32-C3. Other ESP32-C3 boards that use the chip's own USB port should work but are untested.</text>
+</svg>

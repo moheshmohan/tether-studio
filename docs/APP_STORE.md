@@ -7,7 +7,10 @@ installer for App Store Connect. The GitHub DMG stays as it is.
 
 - 22 Nov 2026: bundle ID registered, Mac App Store provisioning profile created (via the App Store Connect
   API), app record created, and build **1.0.0 (1)** uploaded. Apple processed it as valid.
-- Next: the listing (texts, screenshots, privacy answers), a TestFlight check, then **Submit for Review**.
+- Listing filled in through the API (texts, URLs, category, age rating 4+, free, 174 regions without China
+  mainland, review contact and notes), "Data Not Collected" published, and three 2880×1800 screenshots
+  uploaded.
+- Next: a TestFlight check (optional), then **Submit for Review**.
 
 ## What is ready
 
@@ -104,9 +107,18 @@ as soon as it is made, while your Mac stays on your own Wi-Fi.
 > • Sets the camera's clock from your Mac
 > • Built-in MCP server, so AI assistants such as Claude can run the camera for you
 >
-> To control the camera over its own Wi-Fi while your Mac stays on your network, Tether Studio uses an
-> inexpensive Seeed Studio XIAO ESP32-C3 board on USB. The app sets the board up for you with one
-> click. You can also connect the camera directly by USB.
+> WHAT YOU NEED
+> • A Sony ZV-E10 camera (tested with firmware 2.03)
+> • For Wi-Fi: a Seeed Studio XIAO ESP32-C3 board (about US$5) with the flexible Wi-Fi antenna from its
+>   box attached, and a USB-C data cable
+>
+> The camera's remote-control service exists only on its own Wi-Fi network. The thumbnail-sized XIAO
+> ESP32-C3 joins that network and relays it to your Mac over USB, so your Mac stays on your own Wi-Fi with
+> its internet. Tether Studio installs the bridge program on the board with one click: no drivers,
+> Arduino or other tools needed. You can also connect the camera directly by USB.
+>
+> A full guide to the board, with a labelled picture, is at
+> github.com/moheshmohan/tether-studio/blob/main/docs/BOARD.md
 >
 > Tether Studio is free and open source (MIT). It is an independent project, not affiliated with or
 > endorsed by Sony.

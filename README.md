@@ -59,10 +59,34 @@ also has an AI interface (MCP), so Claude or any other MCP client can run the ca
   may work but have not been tried.
 - **A Mac with Apple silicon** (M1 or later) running **macOS 13 Ventura or later**.
 - **For Wi-Fi (recommended):** a [Seeed Studio XIAO ESP32-C3](https://www.seeedstudio.com/Seeed-XIAO-ESP32C3-p-5431.html)
-  (a few dollars; any ESP32-C3 board with its own USB port works) and a USB-C **data** cable. The app puts
-  the bridge program on it for you.
+  board, with the flexible antenna from its box, and a USB-C **data** cable. See
+  [The bridge board](#the-bridge-board-xiao-esp32-c3) below.
 - **Or a USB cable** straight from the camera to the Mac: full control and live view in PC Remote mode,
   and copying in Mass Storage mode.
+
+### The bridge board: XIAO ESP32-C3
+
+<p align="center">
+  <img src="docs/images/xiao-esp32c3.png" alt="Labelled illustration of the XIAO ESP32-C3: USB-C port, BOOT (B) and RESET (R) buttons, the ESP32-C3 chip, and the antenna connector with the flexible antenna" width="100%">
+</p>
+
+The [Seeed Studio XIAO ESP32-C3](https://www.seeedstudio.com/Seeed-XIAO-ESP32C3-p-5431.html) is a
+thumbnail-sized board (21 × 17.8 mm, about US$5). It joins the camera's own Wi-Fi and relays it to the Mac
+over USB, so the Mac stays on your network.
+
+| | |
+|---|---|
+| Chip | ESP32-C3: 2.4 GHz Wi-Fi, its own USB port (no driver needed), 4 MB flash |
+| Antenna | **None on the board.** Attach the flexible antenna that comes in the box to the U.FL connector, or it barely reaches the camera |
+| Cable | USB-C **data** cable (charge-only cables don't work) |
+| Set-up | **Camera ▸ Set Up ESP32-C3 Board…** installs the bridge program in about 20 s. Nothing else to install: no Arduino, no ESP-IDF, no drivers |
+| Buttons | **B** (BOOT): hold it while plugging in if set-up can't reach the board. **R**: reset |
+| Range | A few metres from the camera; it measured −40 dBm next to it |
+| Speed | About 0.6 MB/s over USB: fine for control and live view; HD clips copy in about twice their length |
+| Other boards | Any ESP32-C3 wired to its own USB port should work (for example "C3 SuperMini" boards), but only the XIAO is tested |
+
+Everything about the board (buying, placement, building the firmware yourself, troubleshooting) is in
+[docs/BOARD.md](docs/BOARD.md).
 
 ## Install
 
@@ -84,7 +108,8 @@ shasum -a 256 ~/Downloads/TetherStudio-*.dmg
 
 ### 1. Set up the board (once)
 
-Plug the XIAO ESP32-C3 into the Mac and choose **Camera ▸ Set Up ESP32-C3 Board…**. Pick the board (it
+Attach the flexible antenna to the board's antenna connector (press until it clicks), plug the XIAO
+ESP32-C3 into the Mac, and choose **Camera ▸ Set Up ESP32-C3 Board…**. Pick the board (it
 is listed by its MAC address) and click **Install Bridge Program**. It takes about 20 seconds.
 
 <p align="center">
@@ -350,7 +375,7 @@ From a source build, run them as `.build/debug/TetherStudio …`.
 | [`TetherStudio/`](TetherStudio) | The Mac app (SwiftUI, Swift Package). `Sources/GPhotoC` is a thin C wrapper around libgphoto2. |
 | [`esp32_bridge/`](esp32_bridge) | The ESP32-C3 bridge program (ESP-IDF in `idf/`, an older Arduino version) and `relay.py`, a Python stand-in for the app's side of the bridge. |
 | [`zve10/`](zve10), [`tests/`](tests), [`probe/`](probe) | The project's first prototype: a Python library and command line for the same camera, with a mock camera for tests. |
-| [`docs/`](docs) | The protocol notes and the README's images. |
+| [`docs/`](docs) | The board guide, the protocol notes, the App Store guide, and the README's images. |
 
 ## Limits and known issues
 
