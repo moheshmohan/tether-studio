@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  mac-app:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install libgphoto2
+        run: brew install libgphoto2
+      - name: Build and test
+        working-directory: TetherStudio
+        run: swift test
+      - name: Build the app bundle
+        working-directory: TetherStudio
+        run: scripts/make_app.sh
+
+  python:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pyusb
+        run: pip install -r requirements.txt
+      - name: Tests against the mock camera
+        run: python -m unittest discover -s tests -v

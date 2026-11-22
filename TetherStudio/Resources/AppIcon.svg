@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#30364F"/>
+      <stop offset="1" stop-color="#0D0F18"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="0.15" y1="0.05" x2="0.85" y2="0.95">
+      <stop offset="0" stop-color="#F3F5FA"/>
+      <stop offset="0.45" stop-color="#9AA1B6"/>
+      <stop offset="1" stop-color="#363B4C"/>
+    </linearGradient>
+    <radialGradient id="glass" cx="0.4" cy="0.36" r="0.75">
+      <stop offset="0" stop-color="#40538A"/>
+      <stop offset="0.5" stop-color="#151A30"/>
+      <stop offset="1" stop-color="#04050A"/>
+    </radialGradient>
+    <radialGradient id="rec" cx="0.38" cy="0.34" r="0.75">
+      <stop offset="0" stop-color="#FF8A78"/>
+      <stop offset="1" stop-color="#E3262F"/>
+    </radialGradient>
+    <linearGradient id="cable" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4FD8C4"/>
+      <stop offset="1" stop-color="#2A9D8F"/>
+    </linearGradient>
+    <clipPath id="tile"><rect x="100" y="100" width="824" height="824" rx="186"/></clipPath>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000" flood-opacity="0.32"/>
+    </filter>
+    <filter id="lensShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+
+  <rect x="100" y="100" width="824" height="824" rx="186" fill="url(#bg)" filter="url(#shadow)"/>
+
+  <g clip-path="url(#tile)">
+    <!-- the tether: a cable from the lens down and out of the tile -->
+    <path d="M 512 760 C 512 850, 330 840, 300 960" fill="none" stroke="url(#cable)" stroke-width="34" stroke-linecap="round"/>
+  </g>
+
+  <!-- signal arcs out of the lens -->
+  <g fill="none" stroke="#4FD8C4" stroke-linecap="round">
+    <path d="M 643 219 A 310 310 0 0 1 793 369" stroke-width="30" opacity="0.95"/>
+    <path d="M 664 174 A 360 360 0 0 1 838 348" stroke-width="30" opacity="0.6"/>
+  </g>
+
+  <!-- lens -->
+  <g filter="url(#lensShadow)">
+    <circle cx="512" cy="500" r="262" fill="url(#ring)"/>
+  </g>
+  <circle cx="512" cy="500" r="236" fill="#161925"/>
+  <circle cx="512" cy="500" r="218" fill="none" stroke="#7F869C" stroke-width="6" opacity="0.55"/>
+  <circle cx="512" cy="500" r="200" fill="url(#glass)"/>
+  <circle cx="512" cy="500" r="140" fill="none" stroke="#5B6FA8" stroke-width="3" opacity="0.45"/>
+
+  <!-- record light at the centre -->
+  <circle cx="512" cy="500" r="74" fill="url(#rec)"/>
+  <circle cx="512" cy="500" r="74" fill="none" stroke="#FFFFFF" stroke-width="4" opacity="0.18"/>
+
+  <!-- glass highlights -->
+  <ellipse cx="438" cy="404" rx="86" ry="44" fill="#FFFFFF" opacity="0.16" transform="rotate(-35 438 404)"/>
+  <circle cx="604" cy="598" r="16" fill="#FFFFFF" opacity="0.10"/>
+</svg>

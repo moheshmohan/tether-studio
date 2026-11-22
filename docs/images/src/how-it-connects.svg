@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="780" viewBox="0 0 1600 780" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="3.2" markerHeight="3.2" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4FD8C4"/>
+    </marker>
+    <marker id="arrowV" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="3.2" markerHeight="3.2" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#B49CFF"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1600" height="780" rx="28" fill="#141724"/>
+  <text x="60" y="78" fill="#F3F5FA" font-size="34" font-weight="700">How Tether Studio connects</text>
+  <text x="60" y="114" fill="#9AA1B6" font-size="22">The camera's phone-control service lives only on the camera's own Wi-Fi. A small board carries it to the Mac over USB.</text>
+
+  <!-- Mac -->
+  <rect x="60" y="160" width="430" height="250" rx="22" fill="#1E2233" stroke="#3A4060" stroke-width="2"/>
+  <text x="90" y="212" fill="#F3F5FA" font-size="30" font-weight="700">Your Mac</text>
+  <text x="90" y="250" fill="#4FD8C4" font-size="24" font-weight="600">Tether Studio</text>
+  <text x="90" y="300" fill="#C9CEDD" font-size="21">Live view · record · photos · timelapse</text>
+  <text x="90" y="332" fill="#C9CEDD" font-size="21">Copies every clip as it is made</text>
+  <text x="90" y="374" fill="#9AA1B6" font-size="19">Its Wi-Fi stays on your router</text>
+
+  <!-- ESP32 -->
+  <rect x="640" y="195" width="320" height="180" rx="22" fill="#1E2233" stroke="#3A4060" stroke-width="2"/>
+  <text x="670" y="246" fill="#F3F5FA" font-size="28" font-weight="700">ESP32-C3 board</text>
+  <text x="670" y="286" fill="#C9CEDD" font-size="21">Joins the camera's Wi-Fi</text>
+  <text x="670" y="318" fill="#C9CEDD" font-size="21">Relays it over USB</text>
+  <text x="670" y="352" fill="#9AA1B6" font-size="19">A few dollars, flashed once</text>
+
+  <!-- Camera -->
+  <rect x="1110" y="160" width="430" height="250" rx="22" fill="#1E2233" stroke="#3A4060" stroke-width="2"/>
+  <text x="1140" y="212" fill="#F3F5FA" font-size="30" font-weight="700">Sony ZV-E10</text>
+  <text x="1140" y="250" fill="#FF8A78" font-size="24" font-weight="600">Ctrl w/ Smartphone</text>
+  <text x="1140" y="300" fill="#C9CEDD" font-size="21">Records to its own card</text>
+  <text x="1140" y="332" fill="#C9CEDD" font-size="21">Hands over clips and photos</text>
+  <text x="1140" y="374" fill="#9AA1B6" font-size="19">Firmware 2.03, nothing installed on it</text>
+
+  <!-- USB link -->
+  <line x1="494" y1="285" x2="634" y2="285" stroke="#4FD8C4" stroke-width="6" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+  <text x="564" y="268" fill="#4FD8C4" font-size="20" font-weight="600" text-anchor="middle">USB</text>
+
+  <!-- camera Wi-Fi link -->
+  <line x1="966" y1="285" x2="1104" y2="285" stroke="#4FD8C4" stroke-width="6" stroke-dasharray="14 10" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+  <text x="1035" y="268" fill="#4FD8C4" font-size="20" font-weight="600" text-anchor="middle">Wi-Fi</text>
+  <text x="1035" y="318" fill="#9AA1B6" font-size="17" text-anchor="middle">DIRECT-xxxx</text>
+
+  <!-- AI -->
+  <rect x="60" y="520" width="430" height="200" rx="22" fill="#1E2233" stroke="#5A4A9A" stroke-width="2"/>
+  <text x="90" y="572" fill="#F3F5FA" font-size="28" font-weight="700">AI assistant</text>
+  <text x="90" y="612" fill="#C9CEDD" font-size="21">Claude Code, Claude Desktop</text>
+  <text x="90" y="644" fill="#C9CEDD" font-size="21">or any MCP client</text>
+  <text x="90" y="684" fill="#9AA1B6" font-size="19">"Start a timelapse of the street"</text>
+
+  <line x1="275" y1="514" x2="275" y2="418" stroke="#B49CFF" stroke-width="6" marker-end="url(#arrowV)"/>
+  <text x="300" y="460" fill="#B49CFF" font-size="20" font-weight="600">MCP</text>
+  <text x="300" y="486" fill="#9AA1B6" font-size="17">127.0.0.1 only, with a token</text>
+
+  <!-- USB alternative -->
+  <rect x="640" y="520" width="900" height="200" rx="22" fill="none" stroke="#3A4060" stroke-width="2" stroke-dasharray="10 8"/>
+  <text x="670" y="572" fill="#F3F5FA" font-size="26" font-weight="700">No board? Plug the camera in by USB</text>
+  <text x="670" y="614" fill="#C9CEDD" font-size="21">PC Remote: full control and live view over the cable</text>
+  <text x="670" y="646" fill="#C9CEDD" font-size="21">Mass Storage, or a card reader: copy clips, erase the card</text>
+  <text x="670" y="686" fill="#9AA1B6" font-size="19">The camera's Wi-Fi can also be joined by the Mac itself, at the cost of its internet</text>
+</svg>

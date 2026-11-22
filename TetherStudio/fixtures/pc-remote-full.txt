@@ -1,0 +1,1474 @@
+Label: Auto-Focus
+Readonly: 0
+Type: TOGGLE
+Current: 2
+END
+Label: Manual-Focus
+Readonly: 0
+Type: RANGE
+Current: 0
+Bottom: -7
+Top: 7
+Step: 1
+END
+Label: Capture
+Readonly: 0
+Type: TOGGLE
+Current: 2
+END
+Label: Bulb Mode
+Readonly: 0
+Type: TOGGLE
+Current: 2
+END
+Label: Movie Capture
+Readonly: 0
+Type: TOGGLE
+Current: 2
+END
+Label: Focus Magnifier
+Readonly: 1
+Type: RADIO
+Current: Off,320,240
+Choice: 0 Off
+Choice: 1 1
+Choice: 2 5.9
+Choice: 3 11.7
+END
+Label: Spot Focus Area
+Readonly: 0
+Type: TEXT
+Current: 
+END
+Label: PTP Opcode
+Readonly: 0
+Type: TEXT
+Current: 0x1001,0xparam1,0xparam2
+END
+Label: Capture Target
+Readonly: 0
+Type: RADIO
+Current: sdram
+Choice: 0 sdram
+Choice: 1 card+sdram
+Choice: 2 card
+END
+Label: Serial Number
+Readonly: 1
+Type: TEXT
+Current: 00000000000000000000000000000000
+END
+Label: Camera Manufacturer
+Readonly: 1
+Type: TEXT
+Current: Sony Corporation
+END
+Label: Camera Model
+Readonly: 1
+Type: TEXT
+Current: ZV-E10
+END
+Label: Device Version
+Readonly: 1
+Type: TEXT
+Current: 2.03
+END
+Label: Vendor Extension
+Readonly: 1
+Type: TEXT
+Current: Sony PTP Extensions
+END
+Label: Battery Level
+Readonly: 1
+Type: TEXT
+Current: 100%
+END
+Label: Focus Indication
+Readonly: 1
+Type: RADIO
+Current: Unlock
+Choice: 0 Unlock
+Choice: 1 Focus Locked
+Choice: 2 No Focus - Low Contrast
+Choice: 3 Tracking Acquire
+Choice: 4 Tracking Focused
+Choice: 5 Tracking No Focus - Low Contrast
+Choice: 6 Unpause
+Choice: 7 Pause
+END
+Label: Image Size
+Readonly: 0
+Type: RADIO
+Current: Large
+Choice: 0 Large
+Choice: 1 Medium
+Choice: 2 Small
+END
+Label: ISO Speed
+Readonly: 0
+Type: RADIO
+Current: Auto ISO
+Choice: 0 Auto ISO
+Choice: 1 100
+Choice: 2 125
+Choice: 3 160
+Choice: 4 200
+Choice: 5 250
+Choice: 6 320
+Choice: 7 400
+Choice: 8 500
+Choice: 9 640
+Choice: 10 800
+Choice: 11 1000
+Choice: 12 1250
+Choice: 13 1600
+Choice: 14 2000
+Choice: 15 2500
+Choice: 16 3200
+Choice: 17 4000
+Choice: 18 5000
+Choice: 19 6400
+Choice: 20 8000
+Choice: 21 10000
+Choice: 22 12800
+Choice: 23 16000
+Choice: 24 20000
+Choice: 25 25600
+Choice: 26 32000
+END
+Label: Color Temperature
+Readonly: 1
+Type: RANGE
+Current: 5500
+Bottom: 2500
+Top: 9900
+Step: 100
+END
+Label: WhiteBalance
+Readonly: 0
+Type: RADIO
+Current: Automatic
+Choice: 0 Automatic
+Choice: 1 Daylight
+Choice: 2 Shade
+Choice: 3 Cloudy
+Choice: 4 Tungsten
+Choice: 5 Fluorescent: Warm White
+Choice: 6 Fluorescent: Cold White
+Choice: 7 Fluorescent: Day White
+Choice: 8 Fluorescent: Daylight
+Choice: 9 Flash
+Choice: 10 Underwater: Auto
+Choice: 11 Choose Color Temperature
+Choice: 12 Preset 1
+Choice: 13 Preset 2
+Choice: 14 Preset 3
+END
+Label: Zoom
+Readonly: 1
+Type: RANGE
+Current: 4294.97
+Bottom: 0
+Top: 4294.97
+Step: 1
+END
+Label: Exposure Compensation
+Readonly: 0
+Type: RADIO
+Current: -1.7
+Choice: 0 2
+Choice: 1 1.7
+Choice: 2 1.3
+Choice: 3 1
+Choice: 4 0.7
+Choice: 5 0.3
+Choice: 6 0
+Choice: 7 -0.3
+Choice: 8 -0.7
+Choice: 9 -1
+Choice: 10 -1.3
+Choice: 11 -1.7
+Choice: 12 -2
+END
+Label: Flash Mode
+Readonly: 1
+Type: RADIO
+Current: Flash off
+Choice: 0 Automatic Flash
+Choice: 1 Flash off
+Choice: 2 Fill flash
+Choice: 3 Red-eye automatic
+Choice: 4 Red-eye fill
+Choice: 5 External sync
+Choice: 6 Slow Sync
+Choice: 7 Rear Curtain Sync
+Choice: 8 Wireless Sync
+Choice: 9 HSS auto
+Choice: 10 HSS fill
+Choice: 11 HSS WL
+Choice: 12 Slow Slow Sync Red Eye On
+Choice: 13 Slow Sync Red Eye Off
+Choice: 14 Slow Sync Wireless
+Choice: 15 Rear Sync Wireless
+END
+Label: F-Number
+Readonly: 1
+Type: RADIO
+Current: (null)
+END
+Label: Image Quality
+Readonly: 1
+Type: RADIO
+Current: JPEG
+Choice: 0 RAW
+Choice: 1 RAW+JPEG
+Choice: 2 JPEG
+END
+Label: JPEG Quality
+Readonly: 1
+Type: RADIO
+Current: Fine
+Choice: 0 X.Fine
+Choice: 1 Fine
+Choice: 2 Std
+END
+Label: PC Save Image Size
+Readonly: 1
+Type: RADIO
+Current: Original
+Choice: 0 Original
+Choice: 1 2M
+END
+Label: RAW+J PC Save Image
+Readonly: 1
+Type: RADIO
+Current: RAW Only
+Choice: 0 Disabled
+Choice: 1 RAW & JPEG
+Choice: 2 JPEG Only
+Choice: 3 RAW Only
+Choice: 4 RAW & HEIF
+Choice: 5 HEIF Only
+END
+Label: Focal Position
+Readonly: 1
+Type: RANGE
+Current: 100
+Bottom: 0
+Top: 100
+Step: 1
+END
+Label: Focus Mode
+Readonly: 0
+Type: RADIO
+Current: AF-C
+Choice: 0 Automatic
+Choice: 1 AF-A
+Choice: 2 AF-C
+Choice: 3 DMF
+Choice: 4 Manual
+END
+Label: Exposure Program
+Readonly: 0
+Type: RADIO
+Current: Movie (S)
+Choice: 0 P
+Choice: 1 A
+Choice: 2 S
+Choice: 3 M
+Choice: 4 Movie (P)
+Choice: 5 Movie (A)
+Choice: 6 Movie (S)
+Choice: 7 Movie (M)
+Choice: 8 Movie (Scene)
+Choice: 9 Movie S&Q Motion (P)
+Choice: 10 Movie S&Q Motion (A)
+Choice: 11 Movie S&Q Motion (S)
+Choice: 12 Movie S&Q Motion (M)
+Choice: 13 Intelligent Auto
+Choice: 14 Superior Auto
+Choice: 15 Sweep Panorama
+Choice: 16 Portrait
+Choice: 17 Sports Action
+Choice: 18 Macro
+Choice: 19 Landscape
+Choice: 20 Sunset
+Choice: 21 Night Scene
+Choice: 22 Hand-held Twilight
+Choice: 23 Night Portrait
+Choice: 24 Anti Motion Blur
+END
+Label: Aspect Ratio
+Readonly: 0
+Type: RADIO
+Current: 16:9
+Choice: 0 3:2
+Choice: 1 4:3
+Choice: 2 16:9
+Choice: 3 1:1
+END
+Label: Still Capture Mode
+Readonly: 1
+Type: RADIO
+Current: Single Shot
+Choice: 0 Single Shot
+Choice: 1 Continuous Shooting Lo
+Choice: 2 Continuous Shooting Mid
+Choice: 3 Continuous Shooting Hi
+Choice: 4 Continuous Shooting Hi+
+Choice: 5 Self Timer 10 Sec.
+Choice: 6 Self Timer 5 Sec.
+Choice: 7 Self Timer 2 Sec.
+Choice: 8 Continuous Self Timer 3 Img.
+Choice: 9 Continuous Self Timer 5 Img.
+Choice: 10 Continuous Self Timer 3 Img. 5 Sec.
+Choice: 11 Continuous Self Timer 5 Img. 5 Sec.
+Choice: 12 Continuous Self Timer 3 Img. 2 Sec.
+Choice: 13 Continuous Self Timer 5 Img. 2 Sec.
+Choice: 14 Continuous Bracket 0.3 EV 3 Img.
+Choice: 15 Continuous Bracket 0.3 EV 5 Img.
+Choice: 16 Continuous Bracket 0.5 EV 3 Img.
+Choice: 17 Continuous Bracket 0.5 EV 5 Img.
+Choice: 18 Continuous Bracket 0.7 EV 3 Img.
+Choice: 19 Continuous Bracket 0.7 EV 5 Img.
+Choice: 20 Continuous Bracket 1.0 EV 3 Img.
+Choice: 21 Continuous Bracket 2.0 EV 3 Img.
+Choice: 22 Continuous Bracket 3.0 EV 3 Img.
+Choice: 23 Single Bracket 0.3 EV 3 Img.
+Choice: 24 Single Bracket 0.3 EV 5 Img.
+Choice: 25 Single Bracket 0.5 EV 3 Img.
+Choice: 26 Single Bracket 0.5 EV 5 Img.
+Choice: 27 Single Bracket 0.7 EV 3 Img.
+Choice: 28 Single Bracket 0.7 EV 5 Img.
+Choice: 29 Single Bracket 1.0 EV 3 Img.
+Choice: 30 Single Bracket 2.0 EV 3 Img.
+Choice: 31 Single Bracket 3.0 EV 3 Img.
+Choice: 32 White Balance Bracket Hi
+Choice: 33 White Balance Bracket Lo
+Choice: 34 DRO Bracket Hi
+Choice: 35 DRO Bracket Lo
+END
+Label: Exposure Metering Mode
+Readonly: 0
+Type: RADIO
+Current: Multi
+Choice: 0 Multi
+Choice: 1 Center
+Choice: 2 Spot Standard
+Choice: 3 Spot Large
+Choice: 4 Entire Screen Avg.
+Choice: 5 Highlight
+END
+Label: Shutter Speed
+Readonly: 0
+Type: RADIO
+Current: 1/250
+Choice: 0 1/4
+Choice: 1 1/5
+Choice: 2 1/6
+Choice: 3 1/8
+Choice: 4 1/10
+Choice: 5 1/13
+Choice: 6 1/15
+Choice: 7 1/20
+Choice: 8 1/25
+Choice: 9 1/30
+Choice: 10 1/40
+Choice: 11 1/50
+Choice: 12 1/60
+Choice: 13 1/80
+Choice: 14 1/100
+Choice: 15 1/125
+Choice: 16 1/160
+Choice: 17 1/200
+Choice: 18 1/250
+Choice: 19 1/320
+Choice: 20 1/400
+Choice: 21 1/500
+Choice: 22 1/640
+Choice: 23 1/800
+Choice: 24 1/1000
+Choice: 25 1/1250
+Choice: 26 1/1600
+Choice: 27 1/2000
+Choice: 28 1/2500
+Choice: 29 1/3200
+Choice: 30 1/4000
+Choice: 31 Bulb
+END
+Label: Live View Setting Effect
+Readonly: 1
+Type: RADIO
+Current: On
+Choice: 0 On
+Choice: 1 Off
+END
+Label: Focus Area
+Readonly: 0
+Type: RADIO
+Current: Zone
+Choice: 0 Wide
+Choice: 1 Zone
+Choice: 2 Flexible Spot: L
+Choice: 3 Lock-on AF: Zone
+Choice: 4 Lock-on AF: Flexible Spot: L
+END
+Label: DRange Optimizer
+Readonly: 0
+Type: RADIO
+Current: DRO Auto
+Choice: 0 Off
+Choice: 1 DRO Auto
+Choice: 2 DRO Lv1
+Choice: 3 DRO Lv2
+Choice: 4 DRO Lv3
+Choice: 5 DRO Lv4
+Choice: 6 DRO Lv5
+Choice: 7 HDR Auto
+Choice: 8 HDR 1.0Ev
+Choice: 9 HDR 2.0Ev
+Choice: 10 HDR 3.0Ev
+Choice: 11 HDR 4.0Ev
+Choice: 12 HDR 5.0Ev
+Choice: 13 HDR 6.0Ev
+END
+Label: White Balance
+Readonly: 0
+Type: MENU
+Current: 2
+Choice: 0 2
+Choice: 1 4
+Choice: 2 32785
+Choice: 3 32784
+Choice: 4 6
+Choice: 5 32769
+Choice: 6 32770
+Choice: 7 32771
+Choice: 8 32772
+Choice: 9 7
+Choice: 10 32816
+Choice: 11 32786
+Choice: 12 32800
+Choice: 13 32801
+Choice: 14 32802
+END
+Label: F-Number
+Readonly: 1
+Type: MENU
+Current: 350
+END
+Label: Focus Mode
+Readonly: 0
+Type: MENU
+Current: 32772
+Choice: 0 2
+Choice: 1 32773
+Choice: 2 32772
+Choice: 3 32774
+Choice: 4 1
+END
+Label: Exposure Metering Mode
+Readonly: 0
+Type: MENU
+Current: 32769
+Choice: 0 32769
+Choice: 1 32770
+Choice: 2 32772
+Choice: 3 32773
+Choice: 4 32771
+Choice: 5 32774
+END
+Label: Flash Mode
+Readonly: 1
+Type: MENU
+Current: 2
+END
+Label: Exposure Program Mode
+Readonly: 0
+Type: MENU
+Current: 491602
+Choice: 0 65538
+Choice: 1 131075
+Choice: 2 196612
+Choice: 3 1
+Choice: 4 491600
+Choice: 5 491601
+Choice: 6 491602
+Choice: 7 491603
+Choice: 8 491604
+Choice: 9 622681
+Choice: 10 622682
+Choice: 11 622683
+Choice: 12 622684
+Choice: 13 294912
+Choice: 14 294913
+Choice: 15 426049
+Choice: 16 7
+Choice: 17 360465
+Choice: 18 360469
+Choice: 19 360468
+Choice: 20 360466
+Choice: 21 360467
+Choice: 22 360470
+Choice: 23 360471
+Choice: 24 360472
+END
+Label: Exposure Bias Compensation
+Readonly: 0
+Type: MENU
+Current: -1700
+Choice: 0 2000
+Choice: 1 1700
+Choice: 2 1300
+Choice: 3 1000
+Choice: 4 700
+Choice: 5 300
+Choice: 6 0
+Choice: 7 -300
+Choice: 8 -700
+Choice: 9 -1000
+Choice: 10 -1300
+Choice: 11 -1700
+Choice: 12 -2000
+END
+Label: Still Capture Mode
+Readonly: 1
+Type: MENU
+Current: 1
+Choice: 0 1
+Choice: 1 98322
+Choice: 2 98325
+Choice: 3 65538
+Choice: 4 98320
+Choice: 5 229380
+Choice: 6 229379
+Choice: 7 229381
+Choice: 8 557064
+Choice: 9 557065
+Choice: 10 557068
+Choice: 11 557069
+Choice: 12 557070
+Choice: 13 557071
+Choice: 14 295735
+Choice: 15 296247
+Choice: 16 295767
+Choice: 17 296279
+Choice: 18 295799
+Choice: 19 296311
+Choice: 20 295697
+Choice: 21 295713
+Choice: 22 295729
+Choice: 23 361270
+Choice: 24 361782
+Choice: 25 361302
+Choice: 26 361814
+Choice: 27 361334
+Choice: 28 361846
+Choice: 29 361232
+Choice: 30 361248
+Choice: 31 361264
+Choice: 32 426024
+Choice: 33 426008
+Choice: 34 491561
+Choice: 35 491545
+END
+Label: DOC Compensation
+Readonly: 0
+Type: MENU
+Current: 0
+Choice: 0 3000
+Choice: 1 2700
+Choice: 2 2300
+Choice: 3 2000
+Choice: 4 1700
+Choice: 5 1300
+Choice: 6 1000
+Choice: 7 700
+Choice: 8 300
+Choice: 9 0
+Choice: 10 -300
+Choice: 11 -700
+Choice: 12 -1000
+Choice: 13 -1300
+Choice: 14 -1700
+Choice: 15 -2000
+Choice: 16 -2300
+Choice: 17 -2700
+Choice: 18 -3000
+END
+Label: DRangeOptimize
+Readonly: 0
+Type: MENU
+Current: 31
+Choice: 0 1
+Choice: 1 31
+Choice: 2 17
+Choice: 3 18
+Choice: 4 19
+Choice: 5 20
+Choice: 6 21
+Choice: 7 32
+Choice: 8 33
+Choice: 9 34
+Choice: 10 35
+Choice: 11 36
+Choice: 12 37
+Choice: 13 38
+END
+Label: Image size
+Readonly: 0
+Type: MENU
+Current: 1
+Choice: 0 1
+Choice: 1 2
+Choice: 2 3
+END
+Label: Shutter speed
+Readonly: 0
+Type: MENU
+Current: 65786
+Choice: 0 65540
+Choice: 1 65541
+Choice: 2 65542
+Choice: 3 65544
+Choice: 4 65546
+Choice: 5 65549
+Choice: 6 65551
+Choice: 7 65556
+Choice: 8 65561
+Choice: 9 65566
+Choice: 10 65576
+Choice: 11 65586
+Choice: 12 65596
+Choice: 13 65616
+Choice: 14 65636
+Choice: 15 65661
+Choice: 16 65696
+Choice: 17 65736
+Choice: 18 65786
+Choice: 19 65856
+Choice: 20 65936
+Choice: 21 66036
+Choice: 22 66176
+Choice: 23 66336
+Choice: 24 66536
+Choice: 25 66786
+Choice: 26 67136
+Choice: 27 67536
+Choice: 28 68036
+Choice: 29 68736
+Choice: 30 69536
+END
+Label: Battery Level Indicator
+Readonly: 1
+Type: MENU
+Current: 15
+END
+Label: Color temperature
+Readonly: 1
+Type: RANGE
+Current: 5500
+Bottom: 2500
+Top: 9900
+Step: 100
+END
+Label: CC Filter
+Readonly: 0
+Type: MENU
+Current: 192
+Choice: 0 164
+Choice: 1 165
+Choice: 2 166
+Choice: 3 167
+Choice: 4 168
+Choice: 5 169
+Choice: 6 170
+Choice: 7 171
+Choice: 8 172
+Choice: 9 173
+Choice: 10 174
+Choice: 11 175
+Choice: 12 176
+Choice: 13 177
+Choice: 14 178
+Choice: 15 179
+Choice: 16 180
+Choice: 17 181
+Choice: 18 182
+Choice: 19 183
+Choice: 20 184
+Choice: 21 185
+Choice: 22 186
+Choice: 23 187
+Choice: 24 188
+Choice: 25 189
+Choice: 26 190
+Choice: 27 191
+Choice: 28 192
+Choice: 29 193
+Choice: 30 194
+Choice: 31 195
+Choice: 32 196
+Choice: 33 197
+Choice: 34 198
+Choice: 35 199
+Choice: 36 200
+Choice: 37 201
+Choice: 38 202
+Choice: 39 203
+Choice: 40 204
+Choice: 41 205
+Choice: 42 206
+Choice: 43 207
+Choice: 44 208
+Choice: 45 209
+Choice: 46 210
+Choice: 47 211
+Choice: 48 212
+Choice: 49 213
+Choice: 50 214
+Choice: 51 215
+Choice: 52 216
+Choice: 53 217
+Choice: 54 218
+Choice: 55 219
+Choice: 56 220
+END
+Label: Aspect Ratio
+Readonly: 0
+Type: MENU
+Current: 2
+Choice: 0 1
+Choice: 1 3
+Choice: 2 2
+Choice: 3 4
+END
+Label: Focus Indication
+Readonly: 1
+Type: MENU
+Current: 1
+END
+Label: Zoom
+Readonly: 1
+Type: RANGE
+Current: 4.29497e+09
+Bottom: 0
+Top: 4.29497e+09
+Step: 1
+END
+Label: Objects in memory
+Readonly: 1
+Type: RANGE
+Current: 0
+Bottom: 0
+Top: 65535
+Step: 1
+END
+Label: AELock Indication
+Readonly: 1
+Type: MENU
+Current: 1
+END
+Label: Battery Level
+Readonly: 1
+Type: MENU
+Current: 100
+Choice: 0 -1
+Choice: 1 0
+Choice: 2 1
+Choice: 3 2
+Choice: 4 3
+Choice: 5 4
+Choice: 6 5
+Choice: 7 6
+Choice: 8 7
+Choice: 9 8
+Choice: 10 9
+Choice: 11 10
+Choice: 12 11
+Choice: 13 12
+Choice: 14 13
+Choice: 15 14
+Choice: 16 15
+Choice: 17 16
+Choice: 18 17
+Choice: 19 18
+Choice: 20 19
+Choice: 21 20
+Choice: 22 21
+Choice: 23 22
+Choice: 24 23
+Choice: 25 24
+Choice: 26 25
+Choice: 27 26
+Choice: 28 27
+Choice: 29 28
+Choice: 30 29
+Choice: 31 30
+Choice: 32 31
+Choice: 33 32
+Choice: 34 33
+Choice: 35 34
+Choice: 36 35
+Choice: 37 36
+Choice: 38 37
+Choice: 39 38
+Choice: 40 39
+Choice: 41 40
+Choice: 42 41
+Choice: 43 42
+Choice: 44 43
+Choice: 45 44
+Choice: 46 45
+Choice: 47 46
+Choice: 48 47
+Choice: 49 48
+Choice: 50 49
+Choice: 51 50
+Choice: 52 51
+Choice: 53 52
+Choice: 54 53
+Choice: 55 54
+Choice: 56 55
+Choice: 57 56
+Choice: 58 57
+Choice: 59 58
+Choice: 60 59
+Choice: 61 60
+Choice: 62 61
+Choice: 63 62
+Choice: 64 63
+Choice: 65 64
+Choice: 66 65
+Choice: 67 66
+Choice: 68 67
+Choice: 69 68
+Choice: 70 69
+Choice: 71 70
+Choice: 72 71
+Choice: 73 72
+Choice: 74 73
+Choice: 75 74
+Choice: 76 75
+Choice: 77 76
+Choice: 78 77
+Choice: 79 78
+Choice: 80 79
+Choice: 81 80
+Choice: 82 81
+Choice: 83 82
+Choice: 84 83
+Choice: 85 84
+Choice: 86 85
+Choice: 87 86
+Choice: 88 87
+Choice: 89 88
+Choice: 90 89
+Choice: 91 90
+Choice: 92 91
+Choice: 93 92
+Choice: 94 93
+Choice: 95 94
+Choice: 96 95
+Choice: 97 96
+Choice: 98 97
+Choice: 99 98
+Choice: 100 99
+Choice: 101 100
+END
+Label: Picture Effect
+Readonly: 0
+Type: MENU
+Current: 32768
+Choice: 0 32768
+Choice: 1 32769
+Choice: 2 32770
+Choice: 3 32771
+Choice: 4 32772
+Choice: 5 32773
+Choice: 6 32784
+Choice: 7 32800
+Choice: 8 32801
+Choice: 9 32816
+Choice: 10 32832
+Choice: 11 32848
+Choice: 12 32849
+Choice: 13 32850
+Choice: 14 32851
+Choice: 15 32864
+Choice: 16 32912
+Choice: 17 32880
+Choice: 18 32881
+Choice: 19 32882
+Choice: 20 32896
+Choice: 21 32897
+Choice: 22 32898
+Choice: 23 32928
+Choice: 24 32929
+Choice: 25 32930
+Choice: 26 32931
+Choice: 27 32932
+Choice: 28 32933
+Choice: 29 32934
+Choice: 30 32944
+Choice: 31 32960
+Choice: 32 32961
+Choice: 33 32962
+END
+Label: AB Filter
+Readonly: 0
+Type: RANGE
+Current: 192
+Bottom: 164
+Top: 220
+Step: 2
+END
+Label: Movie Recording State
+Readonly: 1
+Type: MENU
+Current: 0
+Choice: 0 0
+Choice: 1 1
+Choice: 2 2
+END
+Label: ISO
+Readonly: 0
+Type: MENU
+Current: 16777215
+Choice: 0 16777215
+Choice: 1 100
+Choice: 2 125
+Choice: 3 160
+Choice: 4 200
+Choice: 5 250
+Choice: 6 320
+Choice: 7 400
+Choice: 8 500
+Choice: 9 640
+Choice: 10 800
+Choice: 11 1000
+Choice: 12 1250
+Choice: 13 1600
+Choice: 14 2000
+Choice: 15 2500
+Choice: 16 3200
+Choice: 17 4000
+Choice: 18 5000
+Choice: 19 6400
+Choice: 20 8000
+Choice: 21 10000
+Choice: 22 12800
+Choice: 23 16000
+Choice: 24 20000
+Choice: 25 25600
+Choice: 26 32000
+END
+Label: FELock Indication
+Readonly: 1
+Type: MENU
+Current: 1
+END
+Label: Live View Status
+Readonly: 1
+Type: MENU
+Current: 1
+END
+Label: Capture Target
+Readonly: 0
+Type: MENU
+Current: 1
+Choice: 0 1
+Choice: 1 17
+Choice: 2 16
+END
+Label: Date/Time Set
+Readonly: 0
+Type: TEXT
+Current: 
+END
+Label: PTP Property 0xd22a
+Readonly: 1
+Type: MENU
+Current: 1
+END
+Label: Focus Area
+Readonly: 0
+Type: MENU
+Current: 2
+Choice: 0 1
+Choice: 1 2
+Choice: 2 259
+Choice: 3 514
+Choice: 4 518
+END
+Label: Live View Setting Effect
+Readonly: 1
+Type: MENU
+Current: 1
+END
+Label: Manual Focus Adjust Enabled
+Readonly: 1
+Type: MENU
+Current: 0
+Choice: 0 0
+Choice: 1 1
+END
+Label: PTP Property 0xd236
+Readonly: 1
+Type: MENU
+Current: 1
+Choice: 0 0
+Choice: 1 1
+END
+Label: Pixel Shift Shooting Progress
+Readonly: 1
+Type: MENU
+Current: 1
+END
+Label: PTP Property 0xd23e
+Readonly: 1
+Type: MENU
+Current: 0
+END
+Label: Picture Profile
+Readonly: 0
+Type: MENU
+Current: 0
+Choice: 0 0
+Choice: 1 1
+Choice: 2 2
+Choice: 3 3
+Choice: 4 4
+Choice: 5 5
+Choice: 6 6
+Choice: 7 7
+Choice: 8 8
+Choice: 9 9
+Choice: 10 10
+END
+Label: Creative Style
+Readonly: 0
+Type: MENU
+Current: 2
+Choice: 0 1
+Choice: 1 2
+Choice: 2 3
+Choice: 3 4
+Choice: 4 5
+Choice: 5 6
+Choice: 6 13
+END
+Label: File Format Movie
+Readonly: 0
+Type: MENU
+Current: 9
+Choice: 0 8
+Choice: 1 9
+END
+Label: Recording Setting Movie
+Readonly: 0
+Type: MENU
+Current: 25
+Choice: 0 4
+Choice: 1 25
+Choice: 2 5
+Choice: 3 27
+Choice: 4 29
+Choice: 5 31
+END
+Label: PTP Property 0xd243
+Readonly: 1
+Type: MENU
+Current: 2
+END
+Label: PTP Property 0xd244
+Readonly: 1
+Type: MENU
+Current: 2
+END
+Label: PTP Property 0xd245
+Readonly: 1
+Type: MENU
+Current: 1
+END
+Label: PTP Property 0xd246
+Readonly: 1
+Type: MENU
+Current: 1
+END
+Label: PTP Property 0xd247
+Readonly: 0
+Type: MENU
+Current: 0
+Choice: 0 0
+Choice: 1 1
+Choice: 2 2
+Choice: 3 3
+Choice: 4 17
+Choice: 5 18
+Choice: 6 19
+Choice: 7 20
+END
+Label: Media SLOT1 Status
+Readonly: 1
+Type: MENU
+Current: 4
+END
+Label: Media SLOT1 Remaining Shots
+Readonly: 1
+Type: RANGE
+Current: 0
+Bottom: 0
+Top: 4.29497e+09
+Step: 1
+END
+Label: Media SLOT1 Shooting Time
+Readonly: 1
+Type: RANGE
+Current: 33966
+Bottom: 0
+Top: 4.29497e+09
+Step: 1
+END
+Label: Focal Position
+Readonly: 1
+Type: MENU
+Current: 100
+Choice: 0 0
+END
+Label: AWB Lock Indication
+Readonly: 1
+Type: MENU
+Current: 1
+END
+Label: Interval REC Model
+Readonly: 1
+Type: MENU
+Current: 1
+END
+Label: Interval REC Status
+Readonly: 1
+Type: MENU
+Current: 0
+END
+Label: Device Overheat Status
+Readonly: 1
+Type: MENU
+Current: 0
+Choice: 0 0
+Choice: 1 1
+Choice: 2 2
+END
+Label: Jpeg Quality
+Readonly: 1
+Type: MENU
+Current: 2
+Choice: 0 1
+Choice: 1 2
+Choice: 2 3
+END
+Label: File Format Still
+Readonly: 1
+Type: MENU
+Current: 3
+Choice: 0 1
+Choice: 1 2
+Choice: 2 3
+END
+Label: Focus Magnifier Setting
+Readonly: 1
+Type: MENU
+Current: 20971760
+Choice: 0 4294967295
+Choice: 1 47244640255
+Choice: 2 257698037759
+Choice: 3 506806140927
+END
+Label: PTP Property 0xd259
+Readonly: 1
+Type: MENU
+Current: 1
+END
+Label: Zoom Enable Status
+Readonly: 1
+Type: MENU
+Current: 1
+Choice: 0 0
+Choice: 1 1
+END
+Label: Zoom Scale
+Readonly: 0
+Type: RANGE
+Current: 1000
+Bottom: 1000
+Top: 2000
+Step: 100
+END
+Label: Zoom Bar Info
+Readonly: 1
+Type: TEXT
+Current: 33554432
+END
+Label: Zoom Setting
+Readonly: 0
+Type: MENU
+Current: 3
+Choice: 0 1
+Choice: 1 3
+Choice: 2 4
+END
+Label: Zoom Type Status
+Readonly: 1
+Type: MENU
+Current: 1
+END
+Label: PTP Property 0xd261
+Readonly: 1
+Type: RANGE
+Current: 5
+Bottom: 0
+Top: 4.29497e+09
+Step: 1
+END
+Label: Wireless Flash
+Readonly: 1
+Type: MENU
+Current: 0
+Choice: 0 1
+Choice: 1 0
+END
+Label: Red Eye Reduction
+Readonly: 1
+Type: MENU
+Current: 0
+END
+Label: Remote Control Restrict
+Readonly: 1
+Type: MENU
+Current: 0
+END
+Label: Live View Area
+Readonly: 1
+Type: RANGE
+Current: 0
+Bottom: 0
+Top: 4.19435e+07
+Step: 1
+END
+Label: PC Save Image Size
+Readonly: 1
+Type: MENU
+Current: 1
+END
+Label: PC Save Image Format
+Readonly: 1
+Type: MENU
+Current: 3
+END
+Label: Live View Image Quality
+Readonly: 0
+Type: MENU
+Current: 2
+Choice: 0 1
+Choice: 1 2
+END
+Label: CustomWB Capture Area
+Readonly: 1
+Type: MENU
+Current: 0
+Choice: 0 65457
+END
+Label: CustomWB Capture Frame Size
+Readonly: 1
+Type: MENU
+Current: 0
+Choice: 0 0
+END
+Label: CustomWB Capture Standby Enable
+Readonly: 1
+Type: MENU
+Current: 0
+Choice: 0 0
+Choice: 1 1
+END
+Label: CustomWB Capture Standby Cancel Enable
+Readonly: 1
+Type: MENU
+Current: 0
+Choice: 0 0
+Choice: 1 1
+END
+Label: CustomWB Capture Enable
+Readonly: 1
+Type: MENU
+Current: 0
+Choice: 0 0
+Choice: 1 1
+END
+Label: CustomWB Execution State
+Readonly: 1
+Type: MENU
+Current: 0
+END
+Label: Settings Save Enable
+Readonly: 1
+Type: MENU
+Current: 0
+Choice: 0 0
+Choice: 1 1
+END
+Label: Settings Read Enable
+Readonly: 1
+Type: MENU
+Current: 0
+Choice: 0 0
+Choice: 1 1
+END
+Label: Settings Save/Read State
+Readonly: 1
+Type: MENU
+Current: 0
+END
+Label: FTP Setting Save Enable
+Readonly: 1
+Type: MENU
+Current: 0
+Choice: 0 0
+Choice: 1 1
+END
+Label: FTP Setting Read Enable
+Readonly: 1
+Type: MENU
+Current: 0
+Choice: 0 0
+Choice: 1 1
+END
+Label: FTP Setting Save Read State
+Readonly: 1
+Type: MENU
+Current: 0
+END
+Label: PTP Property 0xd278
+Readonly: 1
+Type: TEXT
+Current: 
+END
+Label: PTP Property 0xd27c
+Readonly: 1
+Type: MENU
+Current: 1
+END
+Label: PTP Property 0xd27d
+Readonly: 1
+Type: MENU
+Current: 0
+END
+Label: PTP Property 0xd27e
+Readonly: 1
+Type: MENU
+Current: 0
+END
+Label: PTP Property 0xd27f
+Readonly: 1
+Type: MENU
+Current: 1
+END
+Label: PTP Property 0xd280
+Readonly: 1
+Type: MENU
+Current: 0
+END
+Label: PTP Property 0xd283
+Readonly: 0
+Type: MENU
+Current: 4
+Choice: 0 3
+Choice: 1 4
+END
+Label: PTP Property 0xd284
+Readonly: 1
+Type: MENU
+Current: 1
+Choice: 0 0
+Choice: 1 1
+END
+Label: PTP Property 0xd285
+Readonly: 1
+Type: MENU
+Current: 0
+Choice: 0 0
+Choice: 1 1
+END
+Label: PTP Property 0xd295
+Readonly: 1
+Type: MENU
+Current: 0
+Choice: 0 0
+Choice: 1 1
+END
+Label: PTP Property 0xd296
+Readonly: 1
+Type: MENU
+Current: 0
+Choice: 0 0
+Choice: 1 1
+END
+Label: ShutterHalfRelease
+Readonly: 0
+Type: MENU
+Current: 0
+END
+Label: ShutterRelease
+Readonly: 0
+Type: MENU
+Current: 0
+END
+Label: AELButton
+Readonly: 0
+Type: MENU
+Current: 0
+END
+Label: RequestOneShooting
+Readonly: 0
+Type: MENU
+Current: 0
+END
+Label: MovieRecButtonHold
+Readonly: 0
+Type: MENU
+Current: 0
+END
+Label: FELButton
+Readonly: 0
+Type: MENU
+Current: 0
+END
+Label: Manual Focus Adjust
+Readonly: 0
+Type: RANGE
+Current: 0
+Bottom: 0
+Top: 0
+Step: 0
+END
+Label: AWBLButton
+Readonly: 0
+Type: MENU
+Current: 0
+END
+Label: AF Area Position
+Readonly: 0
+Type: RANGE
+Current: 0
+Bottom: 0
+Top: 0
+Step: 0
+END
+Label: Zoom Operation
+Readonly: 0
+Type: RANGE
+Current: 0
+Bottom: 0
+Top: 0
+Step: 0
+END

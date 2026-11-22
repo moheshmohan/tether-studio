@@ -1,0 +1,4 @@
+# The camera's own Wi-Fi, as shown on its Connection screen (MENU > Network > Ctrl w/ Smartphone > Connection).
+# Copy this file to camera_wifi.txt (which git ignores) and replace the two lines below.
+DIRECT-xxxx:ZV-E10
+camera-wifi-password

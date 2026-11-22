@@ -1,0 +1,24 @@
+# ZV-E10 Wi-Fi bridge, ESP32-C3 with its built-in USB port (USB-Serial/JTAG).
+CONFIG_IDF_TARGET="esp32c3"
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+CONFIG_COMPILER_OPTIMIZATION_PERF=y
+CONFIG_FREERTOS_HZ=1000
+
+# The USB port carries the bridge's frames and nothing else: logs go to the UART pins.
+CONFIG_ESP_CONSOLE_UART_DEFAULT=y
+CONFIG_ESP_CONSOLE_SECONDARY_NONE=y
+CONFIG_LOG_DEFAULT_LEVEL_WARN=y
+
+# TCP: a receive window of 40 segments instead of 4, so the camera can keep sending while a
+# clip is copied, and the stack's lock available to the program (see acknowledge_now in bridge.c).
+CONFIG_LWIP_TCPIP_CORE_LOCKING=y
+CONFIG_LWIP_TCP_WND_DEFAULT=57440
+CONFIG_LWIP_TCP_SND_BUF_DEFAULT=11488
+CONFIG_LWIP_TCP_RECVMBOX_SIZE=64
+CONFIG_LWIP_TCPIP_RECVMBOX_SIZE=64
+CONFIG_LWIP_IRAM_OPTIMIZATION=y
+
+# Wi-Fi receive side sized to match.
+CONFIG_ESP_WIFI_STATIC_RX_BUFFER_NUM=16
+CONFIG_ESP_WIFI_DYNAMIC_RX_BUFFER_NUM=64
+CONFIG_ESP_WIFI_RX_BA_WIN=16

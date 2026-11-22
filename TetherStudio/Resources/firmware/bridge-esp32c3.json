@@ -1,0 +1,6 @@
+{
+  "version": 5,
+  "chip": "esp32c3",
+  "esp_idf": "v5.3.3",
+  "sha256": "85ef411ee917fb5651505e301dcbeb0a1dbf948f296f1cc4ee9ad1010b937503"
+}
