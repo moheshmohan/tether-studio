@@ -6,6 +6,8 @@
 #   scripts/make_app.sh                 ad-hoc signed (runs on this Mac; others must allow it once)
 #   SIGN_ID="Developer ID Application: Name (TEAMID)" scripts/make_app.sh
 #                                       signed for distribution, with the hardened runtime
+#   ENTITLEMENTS=file  PROFILE=file.provisionprofile  EXTRA_PLIST="<key>…"
+#                                       used by make_appstore.sh (App Sandbox build)
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -33,6 +35,24 @@ mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources" "$FW/libgphoto2/camlibs
 
 cp .build/release/TetherStudio "$APP/Contents/MacOS/TetherStudio"
 cp Resources/AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
+# The same icon as an asset catalog (Assets.car), which App Store validation looks for.
+if xcrun --find actool >/dev/null 2>&1; then
+    AC="$(mktemp -d)"
+    iconutil -c iconset Resources/AppIcon.icns -o "$AC/AppIcon.iconset"
+    mkdir -p "$AC/Assets.xcassets/AppIcon.appiconset"
+    echo '{"info":{"version":1,"author":"xcode"}}' > "$AC/Assets.xcassets/Contents.json"
+    images=""
+    for f in "$AC"/AppIcon.iconset/icon_*.png; do
+        n="$(basename "$f" .png)"; size="${n#icon_}"; scale=1x
+        [[ "$size" == *@2x ]] && { scale=2x; size="${size%@2x}"; }
+        cp "$f" "$AC/Assets.xcassets/AppIcon.appiconset/"
+        images+="{\"idiom\":\"mac\",\"size\":\"$size\",\"scale\":\"$scale\",\"filename\":\"$n.png\"},"
+    done
+    echo "{\"images\":[${images%,}],\"info\":{\"version\":1,\"author\":\"xcode\"}}" > "$AC/Assets.xcassets/AppIcon.appiconset/Contents.json"
+    xcrun actool "$AC/Assets.xcassets" --compile "$APP/Contents/Resources" --platform macosx \
+        --minimum-deployment-target 13.0 --app-icon AppIcon --output-partial-info-plist "$AC/partial.plist" >/dev/null
+    rm -rf "$AC"
+fi
 cp -R Resources/firmware "$APP/Contents/Resources/firmware"     # the board's bridge program
 cp -R Resources/licenses "$APP/Contents/Resources/licenses"     # licences of the bundled libraries
 cp ../THIRD_PARTY_NOTICES.md "$APP/Contents/Resources/licenses/"
@@ -85,26 +105,31 @@ cat > "$APP/Contents/Info.plist" <<PLIST
     <key>CFBundlePackageType</key>       <string>APPL</string>
     <key>CFBundleExecutable</key>        <string>TetherStudio</string>
     <key>CFBundleIconFile</key>          <string>AppIcon</string>
+    <key>CFBundleIconName</key>          <string>AppIcon</string>
     <key>LSMinimumSystemVersion</key>    <string>13.0</string>
     <key>NSHighResolutionCapable</key>   <true/>
     <key>LSApplicationCategoryType</key> <string>public.app-category.photography</string>
     <key>NSHumanReadableCopyright</key>  <string>MIT License. Not affiliated with or endorsed by Sony.</string>
+    ${EXTRA_PLIST:-}
     <key>NSLocalNetworkUsageDescription</key>
     <string>Tether Studio looks for your camera on the Wi-Fi network and controls it there.</string>
 </dict>
 </plist>
 PLIST
 
+[[ -n "${PROFILE:-}" ]] && cp "$PROFILE" "$APP/Contents/embedded.provisionprofile"
+ENT=()
+[[ -n "${ENTITLEMENTS:-}" ]] && ENT=(--entitlements "$ENTITLEMENTS")
 if [[ -n "${SIGN_ID:-}" ]]; then
     echo "==> signing with $SIGN_ID (hardened runtime)"
     for f in "$FW"/*.dylib "$FW"/libgphoto2/*/*.so; do
         codesign --force --timestamp --options runtime --sign "$SIGN_ID" "$f"
     done
-    codesign --force --timestamp --options runtime --sign "$SIGN_ID" "$APP"
+    codesign --force --timestamp --options runtime ${ENT[@]+"${ENT[@]}"} --sign "$SIGN_ID" "$APP"
 else
     echo "==> ad-hoc code sign"
     for f in "$FW"/*.dylib "$FW"/libgphoto2/*/*.so; do codesign --force --sign - "$f"; done
-    codesign --force --sign - "$APP"
+    codesign --force ${ENT[@]+"${ENT[@]}"} --sign - "$APP"
 fi
 codesign --verify --deep --strict "$APP"
 

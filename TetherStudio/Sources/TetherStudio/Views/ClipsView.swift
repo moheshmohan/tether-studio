@@ -36,6 +36,7 @@ struct ClipsView: View {
                     .font(.caption).foregroundStyle(.secondary)
                     .help("Reading the card as a disk at \(root.path)")
             }
+
             Spacer()
 
             if store.clipSource == .camera && store.pendingTakes > 0 && store.cardActivity == nil {
@@ -91,7 +92,19 @@ struct ClipsView: View {
 
     @ViewBuilder
     private var content: some View {
-        if store.clipSource == .camera && !store.cameraClipsLoaded {
+        if let card = store.cardNeedsAccess {
+            VStack(spacing: 8) {
+                Image(systemName: "externaldrive.badge.questionmark").font(.title2).foregroundStyle(.secondary)
+                Text("“\(card.lastPathComponent)” is mounted").font(.callout.weight(.medium))
+                Text("macOS asks once per card before Tether Studio may list, copy or erase its files.")
+                    .font(.caption).foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                Button("Allow Access to the Card…") { store.allowCardAccess() }
+                    .buttonStyle(.borderedProminent)
+            }
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        } else if store.clipSource == .camera && !store.cameraClipsLoaded {
             cameraPrompt
         } else if store.clipSource != nil {
             clipList

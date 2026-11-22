@@ -231,6 +231,8 @@ final class CameraStore: ObservableObject {
 
     // files
     @Published var clipSource: ClipSource?
+    /// App Store build: the card is mounted, but the user has not yet allowed the app to read it.
+    @Published var cardNeedsAccess: URL?
     private var clipsLoadedFor: ClipSource?
     @Published var clips: [ClipFile] = [] {
         didSet { refreshOnMac() }
@@ -271,6 +273,7 @@ final class CameraStore: ObservableObject {
             .appendingPathComponent("ZV-E10", isDirectory: true)
         if let saved = UserDefaults.standard.string(forKey: "downloadRoot") {
             downloadRoot = URL(fileURLWithPath: saved)
+            SandboxAccess.openFolder(URL(fileURLWithPath: saved))
         } else {
             downloadRoot = defaultRoot
             UserDefaults.standard.set(defaultRoot.path, forKey: "downloadRoot")
@@ -425,6 +428,9 @@ final class CameraStore: ObservableObject {
         // Where clips can be read from right now: MTP, or the card mounted as a disk.
         let disk = await Task.detached { CardVolume.find() }.value
         guard cardActivity == nil else { return }
+        let locked = await Task.detached { disk.map { !SandboxAccess.openCard($0) } ?? false }.value
+        let needs = locked ? disk : nil
+        if needs != cardNeedsAccess { cardNeedsAccess = needs }
         let source: ClipSource? = m == .mtp ? .mtp
             : disk.map { .disk($0) } ?? (m == .pcRemote && status.phone ? .camera : nil)
         if source != clipSource {
@@ -1899,8 +1905,18 @@ final class CameraStore: ObservableObject {
         panel.canCreateDirectories = true
         panel.message = "Choose where clips are saved"
         if panel.runModal() == .OK, let url = panel.url {
+            SandboxAccess.rememberFolder(url)
             downloadRoot = url
             UserDefaults.standard.set(url.path, forKey: "downloadRoot")
+        }
+    }
+
+    /// App Store build: asks the user to allow reading the mounted card, then lists it.
+    func allowCardAccess() {
+        guard let root = cardNeedsAccess else { return }
+        if SandboxAccess.askForCard(root) {
+            cardNeedsAccess = nil
+            Task { await refreshClips() }
         }
     }
 

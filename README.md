@@ -280,7 +280,7 @@ has to type ERASE or click Install there. The camera's Wi-Fi password is never h
   card-format commands to the camera.
 - **Your board:** only ESP32-C3 chips are written, after their chip type and MAC address are checked.
 
-Found a security problem? See [SECURITY.md](SECURITY.md).
+Found a security problem? See [SECURITY.md](SECURITY.md). The privacy policy is in [PRIVACY.md](PRIVACY.md).
 
 ## Build from source
 
@@ -360,7 +360,8 @@ From a source build, run them as `.build/debug/TetherStudio …`.
 - Over Wi-Fi, reading the card's list pauses live view and control for a moment.
 - A card cannot be erased over Wi-Fi (the camera does not allow it).
 - Apple silicon only for now: the bundled libgphoto2 is built for arm64.
-- The app is not on the Mac App Store yet.
+- The app is not on the Mac App Store yet. A sandboxed App Store build is ready; see
+  [docs/APP_STORE.md](docs/APP_STORE.md).
 
 ## Licence and credits
 

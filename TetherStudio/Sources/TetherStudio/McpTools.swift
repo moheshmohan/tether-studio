@@ -83,6 +83,7 @@ enum McpTools {
             "ready_check": s.readyIssues.map { ["level": "\($0.level)", "text": $0.text] },
             "summary": ReadyCheck.summary(snapshot: s.snapshot, configs: s.configs),
             "takes_waiting_to_copy": s.pendingTakes,
+            "card_needs_permission": s.cardNeedsAccess.map { "The card \($0.lastPathComponent) is mounted but this App Store build may not read it until a person clicks Allow Access to the Card in the window." } ?? NSNull(),
             "download_folder": s.downloadRoot.path,
             "mac_free_bytes": s.macFreeBytes ?? NSNull(),
             "live_view": s.previewEnabled,

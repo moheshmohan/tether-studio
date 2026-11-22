@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Mac App Store build: App Sandbox, with only what the app uses. -->
+    <key>com.apple.security.app-sandbox</key>                 <true/>
+    <!-- The camera over PTP/IP (Wi-Fi, or through the board's relay on 127.0.0.1), and finding it. -->
+    <key>com.apple.security.network.client</key>              <true/>
+    <!-- The MCP server and the board relay listen on 127.0.0.1 only. -->
+    <key>com.apple.security.network.server</key>              <true/>
+    <!-- The camera on a USB cable (PC Remote) through libusb. -->
+    <key>com.apple.security.device.usb</key>                  <true/>
+    <!-- The ESP32-C3 board's USB serial port: the bridge and the board set-up. -->
+    <key>com.apple.security.device.serial</key>               <true/>
+    <!-- Clips and photos go to ~/Movies/ZV-E10 by default. -->
+    <key>com.apple.security.assets.movies.read-write</key>    <true/>
+    <!-- Another download folder, or the card mounted as a disk, chosen by the user in an Open panel. -->
+    <key>com.apple.security.files.user-selected.read-write</key> <true/>
+    <key>com.apple.security.files.bookmarks.app-scope</key>   <true/>
+</dict>
+</plist>
