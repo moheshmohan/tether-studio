@@ -11,7 +11,10 @@ struct RecordBar: View {
             Button {
                 planning = true
             } label: {
-                Label("Timelapse", systemImage: "timelapse")
+                ViewThatFits {
+                    Label("Timelapse", systemImage: "timelapse")
+                    Image(systemName: "timelapse")
+                }
             }
             .controlSize(.large)
             .disabled(!store.photoAvailable)
@@ -41,18 +44,26 @@ struct RecordBar: View {
                     if issues.isEmpty {
                         Text(readyLine)
                             .font(.caption).foregroundStyle(.secondary)
-                            .help(subtitle)
+                            .lineLimit(1).truncationMode(.tail)
+                            .help(readyLine == subtitle ? subtitle : readyLine + "\n\n" + subtitle)
                     } else {
-                        HStack(spacing: 12) {
-                            ForEach(issues.prefix(3)) { issueLabel($0) }
-                            if issues.count > 3 { Text("+\(issues.count - 3) more").font(.caption).foregroundStyle(.secondary) }
+                        // As many warnings as the width allows, worst first; the rest in the tooltip.
+                        ViewThatFits(in: .horizontal) {
+                            issueRow(3)
+                            issueRow(2)
+                            issueRow(1)
+                            Text(issues.count == 1 ? "1 thing to check" : "\(issues.count) things to check")
+                                .font(.caption).foregroundStyle(.orange)
                         }
                         .help(issues.map(\.text).joined(separator: "\n") + "\n\n" + subtitle)
                     }
                 }
             }
 
-            Spacer()
+            .frame(minWidth: 120, alignment: .leading)
+            .layoutPriority(1)
+
+            Spacer(minLength: 8)
 
             if store.isRecording {
                 Button("Force Stop") { store.forceStopRecording() }
@@ -64,6 +75,8 @@ struct RecordBar: View {
                 ProgressView()
                     .controlSize(.small)
                 Text(busy).foregroundStyle(.secondary)
+                    .lineLimit(1).truncationMode(.middle)
+                    .help(busy)
             }
         }
         .padding(.horizontal, 14)
@@ -77,6 +90,14 @@ struct RecordBar: View {
         guard store.mode == .pcRemote, store.cardActivity == nil else { return subtitle }
         let summary = ReadyCheck.summary(snapshot: store.snapshot, configs: store.configs)
         return summary.isEmpty ? subtitle : summary
+    }
+
+    private func issueRow(_ count: Int) -> some View {
+        HStack(spacing: 12) {
+            ForEach(issues.prefix(count)) { issueLabel($0) }
+            if issues.count > count { Text("+\(issues.count - count) more").font(.caption).foregroundStyle(.secondary) }
+        }
+        .fixedSize()
     }
 
     private func issueLabel(_ issue: ReadyIssue) -> some View {

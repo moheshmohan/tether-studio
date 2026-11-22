@@ -3,33 +3,37 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var store: CameraStore
 
+    @State private var columns: NavigationSplitViewVisibility = .all
+
     var body: some View {
-        VStack(spacing: 0) {
-            StatusBar()
-            Divider()
-            RecordBar()
-            Divider()
-            if let status = store.timelapse {
-                TimelapseBanner(status: status)
+        NavigationSplitView(columnVisibility: $columns) {
+            ControlPanel()
+                .navigationSplitViewColumnWidth(min: 270, ideal: 320, max: 440)
+        } detail: {
+            VStack(spacing: 0) {
+                RecordBar()
                 Divider()
-            }
-            if let alert = store.stopAlert {
-                StopAlertBanner(alert: alert)
-                Divider()
-            }
-            HStack(spacing: 0) {
-                ControlPanel()
-                    .frame(width: 340)
-                Divider()
-                VStack(spacing: 0) {
-                    PreviewView()
+                if let status = store.timelapse {
+                    TimelapseBanner(status: status)
                     Divider()
-                    ClipsView()
-                        .frame(height: 230)
                 }
+                if let alert = store.stopAlert {
+                    StopAlertBanner(alert: alert)
+                    Divider()
+                }
+                // The picture takes whatever room the window has; the clip list keeps a height the
+                // user can change by dragging the divider.
+                PreviewAndClips()
+            }
+            .overlay(alignment: .bottom) { errorToast }
+            .navigationSplitViewColumnWidth(min: 460, ideal: 860)
+        }
+        .navigationSubtitle(subtitle)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                ToolbarStatus()
             }
         }
-        .overlay(alignment: .bottom) { errorToast }
         .sheet(item: $store.wipePlan) { plan in WipeSheet(plan: plan).environmentObject(store) }
         .sheet(item: Binding(get: { store.boardSetup }, set: { if $0 == nil { store.closeBoardSetup() } })) { setup in
             BoardSetupSheet(setup: setup).environmentObject(store)
@@ -39,6 +43,14 @@ struct ContentView: View {
         } message: {
             Text(store.wipeOutcome ?? "")
         }
+    }
+
+    /// Under the window title: which camera, and over what.
+    private var subtitle: String {
+        guard store.mode != .disconnected else { return "No camera connected" }
+        let camera = [store.snapshot.model, store.snapshot.firmware.isEmpty ? "" : "fw \(store.snapshot.firmware)"]
+            .filter { !$0.isEmpty }.joined(separator: " ")
+        return [camera, ToolbarStatus.linkText(store)].filter { !$0.isEmpty }.joined(separator: " · ")
     }
 
     @ViewBuilder
@@ -106,8 +118,20 @@ struct StopAlertBanner: View {
     }
 }
 
-struct StatusBar: View {
+/// In the window's toolbar: connection, battery, card room and heat, each short; the long
+/// explanations are in the tooltips.
+struct ToolbarStatus: View {
     @EnvironmentObject var store: CameraStore
+
+    static func linkText(_ store: CameraStore) -> String {
+        guard let link = store.link else { return store.mode == .mtp ? "USB (MTP)" : "" }
+        switch link {
+        case .usb: return store.mode == .mtp ? "USB (MTP)" : "USB"
+        case .wifi(let host):
+            if host == BridgeController.localHost { return "Camera Wi-Fi via board" }
+            return store.phoneControl ? "Camera Wi-Fi" : "Wi-Fi \(host)"
+        }
+    }
 
     private var dotColor: Color {
         switch store.mode {
@@ -117,72 +141,108 @@ struct StatusBar: View {
         }
     }
 
-    var body: some View {
-        HStack(spacing: 12) {
-            Circle().fill(dotColor).frame(width: 10, height: 10)
-            Text(store.phoneControl && store.mode == .pcRemote ? "Ctrl w/ Smartphone · control and clips" : store.mode.title)
-                .fontWeight(.medium)
-            if let link = store.link {
-                Label(linkLabel(link), systemImage: link.isWifi ? "wifi" : "cable.connector")
-                    .foregroundStyle(.secondary)
-            }
+    private var connectionHelp: String {
+        switch store.mode {
+        case .pcRemote:
+            return store.phoneControl
+                ? "Ctrl w/ Smartphone: control and clips over this one connection"
+                : store.link?.isWifi == true
+                    ? "PC Remote over Wi-Fi. Clips: plug in the USB cable; the card then shows up in the clip list"
+                    : "PC Remote over USB. To copy clips, switch the camera's USB connection to Mass Storage"
+        case .mtp:
+            return "The camera is a USB drive (MTP). For control: MENU → Setup → USB Connection → PC Remote"
+        case .disconnected:
+            return "No camera. Connect it over USB, or open its Wi-Fi Connection screen with the ESP32 bridge on"
+        }
+    }
 
-            Divider().frame(height: 14)
+    var body: some View {
+        HStack(spacing: 14) {
+            HStack(spacing: 6) {
+                Circle().fill(dotColor).frame(width: 8, height: 8)
+                Text(store.mode == .disconnected ? "Not connected" : Self.linkText(store))
+                    .lineLimit(1)
+            }
+            .help(connectionHelp)
 
             if store.mode != .disconnected {
-                Text(store.snapshot.model)
-                Text("fw \(store.snapshot.firmware)").foregroundStyle(.secondary)
                 if let batt = store.snapshot.batteryPercent {
                     let low = batt <= 15
-                    Image(systemName: batt > 87 ? "battery.100" : batt > 62 ? "battery.75" : batt > 37 ? "battery.50"
-                          : batt > 12 ? "battery.25" : "battery.0")
+                    Label("\(batt)%", systemImage: batt > 87 ? "battery.100" : batt > 62 ? "battery.75"
+                          : batt > 37 ? "battery.50" : batt > 12 ? "battery.25" : "battery.0")
                         .foregroundStyle(low ? Color.red : Color.primary)
-                    Text("\(batt)%").foregroundStyle(low ? Color.red : Color.secondary)
                         .help(low ? "The camera's battery is low" : "The camera's battery")
                 }
                 if let left = store.snapshot.remainingLabel {
-                    Image(systemName: "sdcard")
-                    Text(left).foregroundStyle(.secondary)
-                        .help("Recording time that still fits on the card at the current movie setting")
+                    Label(left, systemImage: "sdcard")
+                        .lineLimit(1)
+                        .help("Room left on the camera's card at the current setting")
                 }
                 if store.snapshot.overheating {
-                    Label("Camera is hot", systemImage: "thermometer.high")
+                    Label("Hot", systemImage: "thermometer.high")
                         .foregroundStyle(.orange)
+                        .help("The camera is hot and may stop recording")
                 }
             }
-
-            Spacer()
-
-            modeHint
         }
-        .padding(.horizontal, 14)
-        .padding(.vertical, 8)
+        .labelStyle(.titleAndIcon)
+        .font(.callout)
+        .monospacedDigit()
+        .padding(.horizontal, 8)
+    }
+}
+
+/// The live picture above the clip list, with a divider to drag between them. The list keeps the
+/// height it was given (remembered between launches); the picture takes the rest, so it is the one
+/// that grows when the window is made larger, maximised or put in full screen. Both stay usable at
+/// the window's smallest size.
+struct PreviewAndClips: View {
+    @AppStorage("clipListHeight") private var clipsHeight: Double = 250
+    @State private var dragStart: Double?
+
+    private let minPreview: Double = 200
+    private let minClips: Double = 120
+
+    var body: some View {
+        GeometryReader { geo in
+            let total = Double(geo.size.height)
+            let clips = clamp(clipsHeight, total: total)
+            VStack(spacing: 0) {
+                PreviewView()
+                    .frame(height: max(0, total - clips - 9))
+                divider(total: total, current: clips)
+                ClipsView()
+                    .frame(height: clips)
+            }
+        }
     }
 
-    private func linkLabel(_ link: CameraLink) -> String {
-        switch link {
-        case .usb: return "USB"
-        case .wifi(let host):
-            if host == BridgeController.localHost { return "Camera's own Wi-Fi through the ESP32 board" }
-            return store.phoneControl ? "Camera's own Wi-Fi \(host)" : "Wi-Fi \(host)"
-        }
+    private func clamp(_ height: Double, total: Double) -> Double {
+        let most = max(minClips, total - minPreview - 9)
+        return min(max(height, minClips), most)
     }
 
-    @ViewBuilder
-    private var modeHint: some View {
-        switch store.mode {
-        case .pcRemote:
-            Text(store.phoneControl ? "Clips come over this same connection, see below"
-                 : store.link?.isWifi == true
-                 ? "Clips: plug in the USB cable, the card then shows up below"
-                 : "Clip sync: flip USB → MTP (app auto-detects)")
-                .font(.caption).foregroundStyle(.secondary)
-        case .mtp:
-            Text("Control: flip USB → PC Remote (MENU → Setup → USB Connection)")
-                .font(.caption).foregroundStyle(.secondary)
-        case .disconnected:
-            Text("Connect the camera over USB or Wi-Fi")
-                .font(.caption).foregroundStyle(.secondary)
+    private func divider(total: Double, current: Double) -> some View {
+        ZStack {
+            Rectangle().fill(Color(nsColor: .windowBackgroundColor)).frame(height: 9)
+            Divider()
+            Capsule().fill(.secondary.opacity(0.5)).frame(width: 36, height: 4)
         }
+        .contentShape(Rectangle())
+        .onHover { inside in
+            if inside { NSCursor.resizeUpDown.push() } else { NSCursor.pop() }
+        }
+        .gesture(
+            DragGesture(minimumDistance: 1)
+                .onChanged { value in
+                    let start = dragStart ?? current
+                    if dragStart == nil { dragStart = start }
+                    clipsHeight = clamp(start - Double(value.translation.height), total: total)
+                }
+                .onEnded { _ in dragStart = nil }
+        )
+        .onTapGesture(count: 2) { clipsHeight = 250 }
+        .help("Drag to change how much room the clip list has. Double-click for the usual size.")
+        .accessibilityLabel("Divider between the live picture and the clip list")
     }
 }

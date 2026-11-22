@@ -27,8 +27,10 @@ struct TetherStudioApp: App {
         WindowGroup("Tether Studio") {
             ContentView()
                 .environmentObject(store)
-                .frame(minWidth: 980, minHeight: 660)
+                .frame(minWidth: 760, minHeight: 520)
         }
+        .defaultSize(width: 1280, height: 820)
+        .windowToolbarStyle(.unified(showsTitle: true))
         .commands {
             CommandMenu("Camera") {
                 Button(store.isRecording ? "Stop Recording" : "Start Recording") {

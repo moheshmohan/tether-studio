@@ -49,9 +49,10 @@ struct WifiPanel: View {
                 Toggle("Wi-Fi", isOn: $store.wifiEnabled)
                     .toggleStyle(.switch)
                     .controlSize(.small)
+                    .fixedSize()
                 TextField("Camera address (optional)", text: $address)
                     .textFieldStyle(.roundedBorder)
-                    .frame(width: 210)
+                    .frame(minWidth: 140, idealWidth: 210, maxWidth: 210)
                     .disabled(!store.wifiEnabled)
                     .onSubmit(useAddress)
                 Button(address.isEmpty && !store.wifiManualHost.isEmpty ? "Auto" : "Connect", action: useAddress)
@@ -73,26 +74,38 @@ struct WifiPanel: View {
         }
     }
 
+    private var bridgeToggle: some View {
+        Toggle("ESP32 bridge", isOn: Binding(get: { store.bridgeSettings.enabled },
+                                             set: { store.bridgeSettings.enabled = $0 }))
+            .toggleStyle(.switch)
+            .controlSize(.small)
+            .fixedSize()
+            .help("An ESP32 board on this Mac's USB joins the camera's own Wi-Fi, so the Mac stays on the router. Camera: PC Remote Off, Ctrl w/ Smartphone On, Connection screen open.")
+    }
+
+    private var bridgeFields: some View {
+        HStack(spacing: 10) {
+            TextField("Camera's network (DIRECT-…)", text: $network)
+                .textFieldStyle(.roundedBorder)
+                .frame(width: 190)
+            SecureField("Password", text: $password)
+                .textFieldStyle(.roundedBorder)
+                .frame(width: 110)
+            Button("Use", action: useBridge)
+                .disabled(network.trimmingCharacters(in: .whitespaces).isEmpty
+                          || (network == store.bridgeSettings.network && password == store.bridgeSettings.password
+                              && store.bridgeSettings.enabled))
+        }
+    }
+
     /// The camera's own network, reached through the ESP32 board on USB: the
     /// one connection that both controls the camera and hands over its clips.
     private var bridgeRow: some View {
         VStack(spacing: 6) {
-            HStack(spacing: 10) {
-                Toggle("ESP32 bridge", isOn: Binding(get: { store.bridgeSettings.enabled },
-                                                     set: { store.bridgeSettings.enabled = $0 }))
-                    .toggleStyle(.switch)
-                    .controlSize(.small)
-                    .help("An ESP32 board on this Mac's USB joins the camera's own Wi-Fi, so the Mac stays on the router. Camera: PC Remote Off, Ctrl w/ Smartphone On, Connection screen open.")
-                TextField("Camera's network (DIRECT-…)", text: $network)
-                    .textFieldStyle(.roundedBorder)
-                    .frame(width: 190)
-                SecureField("Password", text: $password)
-                    .textFieldStyle(.roundedBorder)
-                    .frame(width: 110)
-                Button("Use", action: useBridge)
-                    .disabled(network.trimmingCharacters(in: .whitespaces).isEmpty
-                              || (network == store.bridgeSettings.network && password == store.bridgeSettings.password
-                                  && store.bridgeSettings.enabled))
+            // One line when there is room, the toggle above the fields when not.
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 10) { bridgeToggle; bridgeFields }
+                VStack(spacing: 8) { bridgeToggle; bridgeFields }
             }
             .onSubmit(useBridge)
             if needsBoardSetup {

@@ -58,7 +58,7 @@ struct ControlPanel: View {
                 section("Focus") {
                     configPicker("Focus mode", "focusmode")
                     HStack {
-                        Text("Autofocus").foregroundStyle(.secondary).frame(width: 110, alignment: .leading)
+                        Text("Autofocus").foregroundStyle(.secondary).frame(width: settingsLabelWidth, alignment: .leading)
                         Button("Focus now") { store.triggerAutofocus() }
                             .disabled(store.configs["focusmode"]?.current == "Manual")
                             .help("Has the camera focus once (⌘F)")
@@ -78,7 +78,7 @@ struct ControlPanel: View {
                     manualFocusNudge
                     if let state = store.configs["focusindication"]?.current {
                         HStack {
-                            Text("Focus").foregroundStyle(.secondary).frame(width: 110, alignment: .leading)
+                            Text("Focus").foregroundStyle(.secondary).frame(width: settingsLabelWidth, alignment: .leading)
                             Text(state).foregroundStyle(state.contains("Locked") || state.contains("Focused") ? .green : .secondary)
                         }
                     }
@@ -107,8 +107,7 @@ struct ControlPanel: View {
     }
 
     private var movieModePicker: some View {
-        HStack {
-            Text("Mode").foregroundStyle(.secondary).frame(width: 110, alignment: .leading)
+        AdaptiveRow(title: "Mode") {
             if let cfg = store.configs["expprogram"], !cfg.options.isEmpty {
                 // In a photo mode the photo modes are offered, otherwise the movie modes; Record and
                 // Take Photo each switch to the other kind by themselves.
@@ -171,8 +170,7 @@ struct ControlPanel: View {
     /// What a click on the live picture does (the camera's "touch function").
     @ViewBuilder
     private var touchFunction: some View {
-        HStack {
-            Text("Click picture").foregroundStyle(.secondary).frame(width: 110, alignment: .leading)
+        AdaptiveRow(title: "Click picture") {
             Picker("", selection: Binding(get: { store.touchTracks }, set: { store.setTouchTracks($0) })) {
                 Text("Focus there").tag(false)
                 Text("Track subject").tag(true)
@@ -190,10 +188,11 @@ struct ControlPanel: View {
 
     /// Small manual-focus steps (the camera accepts them in Manual focus mode only).
     private var manualFocusNudge: some View {
-        HStack {
-            Text("MF step").foregroundStyle(.secondary).frame(width: 110, alignment: .leading)
-            ForEach([(-3, "Near ◀◀"), (-1, "◀"), (1, "▶"), (3, "▶▶ Far")], id: \.0) { step, label in
-                Button(label) { store.setRange("/main/actions/manualfocus", value: Double(step)) }
+        AdaptiveRow(title: "MF step") {
+            HStack(spacing: 4) {
+                ForEach([(-3, "Near ◀◀"), (-1, "◀"), (1, "▶"), (3, "▶▶ Far")], id: \.0) { step, label in
+                    Button(label) { store.setRange("/main/actions/manualfocus", value: Double(step)) }
+                }
             }
         }
         .controlSize(.small)
@@ -245,6 +244,29 @@ struct ControlPanel: View {
 
 // MARK: - reusable rows
 
+/// The width of a row's title column in the settings sidebar.
+let settingsLabelWidth: CGFloat = 100
+
+/// A title and a wide control side by side when the sidebar has room, the title above it when not.
+struct AdaptiveRow<Control: View>: View {
+    let title: String
+    @ViewBuilder let control: () -> Control
+
+    var body: some View {
+        ViewThatFits(in: .horizontal) {
+            HStack {
+                Text(title).foregroundStyle(.secondary).frame(width: settingsLabelWidth, alignment: .leading)
+                control().fixedSize()
+                Spacer(minLength: 0)
+            }
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title).foregroundStyle(.secondary)
+                control()
+            }
+        }
+    }
+}
+
 struct ConfigPicker: View {
     let title: String
     let config: CameraConfig?
@@ -255,7 +277,7 @@ struct ConfigPicker: View {
 
     var body: some View {
         HStack {
-            Text(title).foregroundStyle(.secondary).frame(width: 110, alignment: .leading)
+            Text(title).foregroundStyle(.secondary).frame(width: settingsLabelWidth, alignment: .leading)
             if let cfg = config, !cfg.options.isEmpty {
                 Picker("", selection: Binding(
                     get: { cfg.currentIndex ?? -1 },
@@ -290,7 +312,7 @@ struct RangeRow: View {
 
     var body: some View {
         HStack {
-            Text(title).foregroundStyle(.secondary).frame(width: 110, alignment: .leading)
+            Text(title).foregroundStyle(.secondary).frame(width: settingsLabelWidth, alignment: .leading)
             if let cfg = config, cfg.isRange, cfg.readOnly, let bottom = cfg.bottom, let top = cfg.top, top > bottom {
                 // The camera only reports this value here (the focus distance always, the colour
                 // temperature while white balance is automatic): show it, do not pretend it can be dragged.

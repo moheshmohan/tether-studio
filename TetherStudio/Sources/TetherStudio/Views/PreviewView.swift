@@ -43,6 +43,7 @@ struct PreviewView: View {
                     .toggleStyle(.switch)
             }
             .controlSize(.mini)
+            .fixedSize()
             .padding(8)
             .background(.thinMaterial)
             .cornerRadius(6)
@@ -98,7 +99,13 @@ private struct LivePicture: View {
                 .overlay { touchLayer }
                 .padding(10)
         } else if store.mode == .disconnected {
-            WifiPanel()
+            // Centred when it fits, scrollable when the picture area is small.
+            GeometryReader { geo in
+                ScrollView {
+                    WifiPanel()
+                        .frame(maxWidth: .infinity, minHeight: geo.size.height)
+                }
+            }
         } else {
             VStack(spacing: 10) {
                 Image(systemName: "video.fill")

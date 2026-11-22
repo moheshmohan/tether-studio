@@ -11,7 +11,7 @@ struct PresetsSection: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            LazyVGrid(columns: [GridItem(.flexible(), spacing: 6), GridItem(.flexible(), spacing: 6)], spacing: 6) {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 6)], spacing: 6) {  // 1–3 columns, as wide as the sidebar is
                 ForEach(store.allPresets) { preset in
                     chip(preset)
                 }

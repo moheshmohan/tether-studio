@@ -20,27 +20,20 @@ struct ClipsView: View {
 
     private var header: some View {
         HStack(spacing: 10) {
-            Text("Clips on card")
+            Text("Clips")
                 .font(.headline)
             if store.clipSource != nil {
                 Text("\(store.clips.count)")
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.secondary).monospacedDigit()
             }
-            if store.clipSource == .camera, store.cameraClipsLoaded, let at = store.cameraClipsReadAt {
-                Text("as read at \(at.formatted(date: .omitted, time: .shortened))")
-                    .font(.caption).foregroundStyle(.tertiary)
-                    .help("The card's list as it was then. The refresh button reads it again; every copy checks the card first.")
-            }
-            if case .disk(let root) = store.clipSource {
-                Label(root.lastPathComponent, systemImage: "externaldrive")
-                    .font(.caption).foregroundStyle(.secondary)
-                    .help("Reading the card as a disk at \(root.path)")
-            }
+            sourceLabel
+                .lineLimit(1)
+                .layoutPriority(-1)
 
-            Spacer()
+            Spacer(minLength: 8)
 
             if store.clipSource == .camera && store.pendingTakes > 0 && store.cardActivity == nil {
-                Button(store.pendingTakes == 1 ? "Copy the waiting take" : "Copy \(store.pendingTakes) waiting takes") {
+                Button(store.pendingTakes == 1 ? "Copy waiting take" : "Copy \(store.pendingTakes) waiting takes") {
                     Task { await store.copyWaitingTakes() }
                 }
                 .disabled(store.isRecording)
@@ -48,12 +41,17 @@ struct ClipsView: View {
             }
 
             if store.clipSource == .camera {
-                Toggle("Copy each clip when recording stops", isOn: $store.autoCopy)
-                    .toggleStyle(.checkbox)
-                    .help("After every recording the camera hands the new clip over on this same connection. Live view and the controls pause while it copies.")
+                Toggle(isOn: $store.autoCopy) {
+                    ViewThatFits {
+                        Text("Copy each clip when recording stops")
+                        Text("Auto-copy")
+                    }
+                }
+                .toggleStyle(.checkbox)
+                .help("After every recording the camera hands the new clip over on this same connection. Live view and the controls pause while it copies.")
             }
 
-            if store.clipSource != nil && (store.clipSource != .camera || store.cameraClipsLoaded) {
+            if listable {
                 Button {
                     Task { await store.refreshClips() }
                 } label: { Image(systemName: "arrow.clockwise") }
@@ -63,31 +61,47 @@ struct ClipsView: View {
                 Button("Download New") { store.downloadNew() }
                     .disabled(busy || store.clips.allSatisfy { store.isDownloaded($0) })
                     .help("Copies the clips that are not in the download folder yet (⌘D)")
-
-                Button("Download All") {
-                    store.download(Array(store.clips))
-                }
-                .disabled(busy || store.clips.isEmpty)
-                .help("Goes through every clip; those already in the download folder are skipped")
-
-                if case .disk = store.clipSource {
-                    Button { store.ejectCard() } label: { Image(systemName: "eject") }
-                        .help("Eject the card before unplugging the cable")
-                }
             }
 
-            Button {
-                store.showDownloadFolder()
-            } label: { Image(systemName: "folder") }
-            .help("Show the download folder in Finder (\(store.downloadRoot.path))")
-
-            Button {
-                store.chooseDownloadFolder()
-            } label: { Image(systemName: "folder.badge.gear") }
-            .help("Choose download folder (currently \(store.downloadRoot.path))")
+            Menu {
+                if listable {
+                    Button("Download All") { store.download(Array(store.clips)) }
+                        .disabled(busy || store.clips.isEmpty)
+                }
+                if case .disk = store.clipSource {
+                    Button("Eject Card") { store.ejectCard() }
+                }
+                if listable { Divider() }
+                Button("Show Download Folder") { store.showDownloadFolder() }
+                Button("Choose Download Folder…") { store.chooseDownloadFolder() }
+            } label: {
+                Image(systemName: "ellipsis.circle")
+            }
+            .menuStyle(.borderlessButton)
+            .menuIndicator(.hidden)
+            .fixedSize()
+            .help("More: download all, eject, download folder (\(store.downloadRoot.path))")
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 8)
+    }
+
+    /// Whether the list can be read and copied from right now.
+    private var listable: Bool {
+        store.clipSource != nil && (store.clipSource != .camera || store.cameraClipsLoaded)
+    }
+
+    @ViewBuilder
+    private var sourceLabel: some View {
+        if store.clipSource == .camera, store.cameraClipsLoaded, let at = store.cameraClipsReadAt {
+            Text("as read at \(at.formatted(date: .omitted, time: .shortened))")
+                .font(.caption).foregroundStyle(.tertiary)
+                .help("The card's list as it was then. The refresh button reads it again; every copy checks the card first.")
+        } else if case .disk(let root) = store.clipSource {
+            Label(root.lastPathComponent, systemImage: "externaldrive")
+                .font(.caption).foregroundStyle(.secondary)
+                .help("Reading the card as a disk at \(root.path)")
+        }
     }
 
     @ViewBuilder
@@ -197,17 +211,21 @@ struct CardActivityRow: View {
         HStack(spacing: 10) {
             if let total = shown.total, total > 0 {
                 ProgressView(value: Double(min(shown.done, total)), total: Double(total))
-                    .frame(width: 160)
+                    .frame(minWidth: 80, idealWidth: 160, maxWidth: 160)
             } else {
                 ProgressView().controlSize(.small)
             }
-            Text(shown.title).fontWeight(.medium)
+            Text(shown.title).fontWeight(.medium).lineLimit(1)
             if let detail = shown.detail {
-                Text(detail).foregroundStyle(.secondary).monospacedDigit()
+                Text(detail).foregroundStyle(.secondary).monospacedDigit().lineLimit(1)
             }
-            Spacer()
-            Text("Live view and controls are paused")
-                .font(.caption).foregroundStyle(.secondary)
+            Spacer(minLength: 8)
+            ViewThatFits {
+                Text("Live view and controls are paused")
+                Text("Controls paused")
+                EmptyView()
+            }
+            .font(.caption).foregroundStyle(.secondary)
             Button("Stop", action: stop)
                 .help("Stops after the piece being copied; the part already here is kept and continued next time")
         }
@@ -228,8 +246,10 @@ struct ClipRow: View {
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(clip.name).fontWeight(.medium)
+                    .lineLimit(1).truncationMode(.middle)
                 Text("\(clip.dayFolder) · \(clip.sizeLabel)\(dimsLabel)")
                     .font(.caption).foregroundStyle(.secondary)
+                    .lineLimit(1)
             }
 
             Spacer()
