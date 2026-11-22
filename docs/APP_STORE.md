@@ -3,6 +3,12 @@
 The App Store version is the same app, built to run in Apple's **App Sandbox** and packaged as an
 installer for App Store Connect. The GitHub DMG stays as it is.
 
+## Status
+
+- 22 Nov 2026: bundle ID registered, Mac App Store provisioning profile created (via the App Store Connect
+  API), app record created, and build **1.0.0 (1)** uploaded. Apple processed it as valid.
+- Next: the listing (texts, screenshots, privacy answers), a TestFlight check, then **Submit for Review**.
+
 ## What is ready
 
 - **Build:** `TetherStudio/scripts/make_appstore.sh` builds the sandboxed app and, with your
