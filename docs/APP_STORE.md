@@ -10,7 +10,9 @@ installer for App Store Connect. The GitHub DMG stays as it is.
 - Listing filled in through the API (texts, URLs, category, age rating 4+, free, 174 regions without China
   mainland, review contact and notes), "Data Not Collected" published, and three 2880×1800 screenshots
   uploaded.
-- Next: a TestFlight check (optional), then **Submit for Review**.
+- Submitted for review on 22 Nov 2026 (version 1.0.0, build 1), with manual release: after approval,
+  press **Release This Version** in App Store Connect.
+- The next build (with the antenna reminder in the board set-up sheet) needs `BUILD=2`.
 
 ## What is ready
 
