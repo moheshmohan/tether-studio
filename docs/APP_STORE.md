@@ -11,7 +11,11 @@ installer for App Store Connect. The GitHub DMG stays as it is.
   mainland, review contact and notes), "Data Not Collected" published, and three 2880×1800 screenshots
   uploaded.
 - Submitted for review on 22 Nov 2026 (version 1.0.0, build 1), released automatically once Apple approves it.
-- The next build (with the antenna reminder in the board set-up sheet) needs `BUILD=2`.
+- Build **1.0.0 (2)** (antenna reminder in the board set-up sheet) uploaded and valid. The next build needs `BUILD=3`.
+- 24 Nov 2026: Apple's automated check rejected build 1 under guideline 2.4.5, saying the
+  `com.apple.security.network.server` entitlement had no matching feature. The app does need it (see
+  *Why the app listens on the network* below). We replied in App Review explaining this, added the same
+  text to the review notes, switched the version to build 2 and resubmitted. It is waiting for review.
 
 ## What is ready
 
@@ -141,6 +145,20 @@ Paste into *App Review Information ▸ Notes*:
 >
 > The local MCP server listens on 127.0.0.1 only and requires a token. It lets AI assistants on the same
 > Mac use the app's features. The app collects no data and makes no internet connections.
+
+### Why the app listens on the network
+
+Apple's automated check flags `com.apple.security.network.server` unless the review notes explain it.
+In the sandbox the app needs it to accept any incoming connection, even from the same Mac. Both
+listeners are bound to 127.0.0.1 only:
+
+1. **Camera relay** (ports 15740 and 64321, `EspBridge.swift`): libgphoto2 connects to 127.0.0.1 over
+   PTP/IP, and the app forwards the traffic over USB to the ESP32-C3 board on the camera's Wi-Fi. Without
+   it the Wi-Fi connection does not work.
+2. **MCP server** (port 8765, `McpServer.swift`, off until turned on): for AI assistants on the same Mac,
+   with a per-install token.
+
+Keep a paragraph saying this in *App Review Information ▸ Notes* for every submission.
 
 Reviewers can't test camera hardware, so the short screen recording matters. Show connecting,
 recording, a clip being copied, and the board set-up.
